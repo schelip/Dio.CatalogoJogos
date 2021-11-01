@@ -29,7 +29,10 @@ namespace ApiCatalogoJogos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<IJogoService, JogoService>();
+            services.AddScoped<IProdutoraService, ProdutoraService>();
             services.AddScoped<IJogoRepository, JogoRepository>();
+            services.AddScoped<IProdutoraRepository, ProdutoraRepository>();
+
             services.AddDbContext<CatalogoJogosDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
