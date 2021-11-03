@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Model.ViewModel
+namespace ApiCatalogoJogos.Infrastructure.Model.ViewModel
 {
     public class JogoViewModel
     {

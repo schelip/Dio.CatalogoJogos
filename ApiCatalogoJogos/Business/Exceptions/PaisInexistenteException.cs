@@ -1,8 +1,10 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Exceptions
+namespace ApiCatalogoJogos.Business.Exceptions
 {
-
+    /// <summary>
+    /// Utilizada quando a validação de um ISO de país falha
+    /// </summary>
     [Serializable]
     public class PaisInexistenteException : Exception
     {

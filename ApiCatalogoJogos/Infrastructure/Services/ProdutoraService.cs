@@ -4,12 +4,13 @@ using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Entities;
+using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Exceptions;
-using ApiCatalogoJogos.Model.InputModel;
-using ApiCatalogoJogos.Model.ViewModel;
+using ApiCatalogoJogos.Business.Services;
+using ApiCatalogoJogos.Infrastructure.Model.InputModel;
+using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 
-namespace ApiCatalogoJogos.Services
+namespace ApiCatalogoJogos.Infrastructure.Services
 {
     public class ProdutoraService : IProdutoraService
     {
@@ -70,7 +71,7 @@ namespace ApiCatalogoJogos.Services
                     ? await _repository.Obter(produtoraInput.ProdutoraMaeId.Value)
                     ?? throw new EntidadeNaoCadastradaException("Produtora mãe com id informado não encontrada")
                     : null
-        };
+            };
 
             await _repository.Inserir(produtora);
 

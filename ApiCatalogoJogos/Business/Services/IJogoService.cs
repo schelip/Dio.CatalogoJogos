@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Exceptions;
-using ApiCatalogoJogos.Model.InputModel;
-using ApiCatalogoJogos.Model.ViewModel;
+using ApiCatalogoJogos.Business.Exceptions;
+using ApiCatalogoJogos.Infrastructure.Model.InputModel;
+using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 
-namespace ApiCatalogoJogos.Services
+namespace ApiCatalogoJogos.Business.Services
 {
     /// <summary>
     /// Contrato para classe que gerencia operações no repositório utilizando Models

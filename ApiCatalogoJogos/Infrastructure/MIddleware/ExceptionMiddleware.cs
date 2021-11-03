@@ -1,10 +1,9 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace ApiCatalogoJogos.MIddleware
+namespace ApiCatalogoJogos.Infrastructure.MIddleware
 {
     public class ExceptionMiddleware
     {

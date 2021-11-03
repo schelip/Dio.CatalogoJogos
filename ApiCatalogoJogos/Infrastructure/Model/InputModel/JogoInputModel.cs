@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace ApiCatalogoJogos.Model.InputModel
+namespace ApiCatalogoJogos.Infrastructure.Model.InputModel
 {
     public class JogoInputModel
     {

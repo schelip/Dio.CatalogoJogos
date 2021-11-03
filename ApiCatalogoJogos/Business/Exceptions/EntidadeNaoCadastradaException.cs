@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Exceptions
+namespace ApiCatalogoJogos.Business.Exceptions
 {
     /// <summary>
     /// Utilizada quando entidade buscada não está cadastrada

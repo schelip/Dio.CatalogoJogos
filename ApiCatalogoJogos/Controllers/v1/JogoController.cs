@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Exceptions;
-using ApiCatalogoJogos.Model.InputModel;
-using ApiCatalogoJogos.Model.ViewModel;
-using ApiCatalogoJogos.Services;
+using ApiCatalogoJogos.Business.Exceptions;
+using ApiCatalogoJogos.Business.Services;
+using ApiCatalogoJogos.Infrastructure.Model.InputModel;
+using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Entities;
+using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Exceptions;
-using ApiCatalogoJogos.Model.InputModel;
-using ApiCatalogoJogos.Model.ViewModel;
+using ApiCatalogoJogos.Business.Services;
+using ApiCatalogoJogos.Infrastructure.Model.InputModel;
+using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 
-namespace ApiCatalogoJogos.Services
+namespace ApiCatalogoJogos.Infrastructure.Services
 {
     public class JogoService : IJogoService
     {

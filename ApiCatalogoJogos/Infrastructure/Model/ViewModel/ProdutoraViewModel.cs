@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace ApiCatalogoJogos.Model.ViewModel
+namespace ApiCatalogoJogos.Infrastructure.Model.ViewModel
 {
     public class ProdutoraViewModel
     {
