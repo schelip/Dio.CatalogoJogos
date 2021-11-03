@@ -6,7 +6,7 @@ namespace ApiCatalogoJogos.Model.ViewModel
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
-        public string Produtora { get; set; }
+        public Guid ProdutoraId { get; set; }
         public int Ano { get; set; }
     }
 }

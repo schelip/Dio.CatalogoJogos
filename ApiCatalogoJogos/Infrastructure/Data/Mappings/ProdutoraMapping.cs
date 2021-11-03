@@ -12,12 +12,10 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Mappings
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id);
             builder.Property(p => p.Nome);
-            builder.Property(p => p.isoPais);
-            builder.Property(p => p.ProdutoraMae);
+            builder.Property(p => p.ISOPais);
             builder.HasOne(p => p.ProdutoraMae)
-                .WithMany(mae => mae.ProdutorasFilhas);
-            builder.HasMany(p => p.ProdutorasFilhas)
-                .WithOne(filha => filha.ProdutoraMae);
+                .WithMany()
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

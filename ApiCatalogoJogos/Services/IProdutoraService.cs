@@ -24,13 +24,6 @@ namespace ApiCatalogoJogos.Services
         /// <exception cref="PaisInexistenteException">Se ocorrer um erro na validação do ISO</exception>
         Task<List<ProdutoraViewModel>> Obter(string isoPais);
         /// <summary>
-        /// Obtém todas as produtoras filhas de uma produtora mãe no repositório
-        /// </summary>
-        /// <param name="idMae">Produtora da qual serão obtidas as filhas</param>
-        /// <returns>Lista das produtoras filhas</returns>
-        /// <exception cref="EntidadeNaoCadastradaException">Se não é possível encontrar a produtora mãe</exception>
-        Task<List<ProdutoraViewModel>> ObterFilhas(Guid idMae);
-        /// <summary>
         /// Obtém produtora do repositório pelo seu Id
         /// </summary>
         /// <param name="guid">Id da produtora a ser obtida</param>

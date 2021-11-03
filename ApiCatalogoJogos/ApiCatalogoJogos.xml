@@ -14,14 +14,19 @@
             Nome do jogo
             </summary>
         </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Produtora">
-            <summary>
-            Produtora do jogo
-            </summary>
-        </member>
         <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Ano">
             <summary>
             Ano de lançamento do jogo (-1: não definido)
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.ProdutoraId">
+            <summary>
+            Id da Produtora do jogo
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Produtora">
+            <summary>
+            Produtora do jogo
             </summary>
         </member>
         <member name="P:ApiCatalogoJogos.Business.Entities.Produtora.Id">
@@ -34,7 +39,7 @@
             Nome da produtora
             </summary>
         </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Produtora.isoPais">
+        <member name="P:ApiCatalogoJogos.Business.Entities.Produtora.ISOPais">
             <summary>
             ISO de dois caracteres do país de origem da produtora
             </summary>
@@ -42,11 +47,6 @@
         <member name="P:ApiCatalogoJogos.Business.Entities.Produtora.ProdutoraMae">
             <summary>
             Produtora mãe da produtora
-            </summary>
-        </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Produtora.ProdutorasFilhas">
-            <summary>
-            Lista das produtoras filhas da produtora
             </summary>
         </member>
         <member name="T:ApiCatalogoJogos.Business.Repositories.IJogoRepository">
@@ -72,13 +72,13 @@
             Se não encontrado: null
             </returns>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Obter(System.String,System.String)">
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Obter(System.String,System.Guid)">
             <summary>
             Obtém lista de jogos do contexto a partir de um nome e produtora.
             Utilizada para resolver conflitos (Lista vazia: nenhum conflito)
             </summary>
             <param name="nome">Nome dos jogos</param>
-            <param name="produtora">Produtora dos jogos</param>
+            <param name="idProdutora">Id da produtora do jogo</param>
             <returns>Lista de jogos desse nome e produtora</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Inserir(ApiCatalogoJogos.Business.Entities.Jogo)">
@@ -131,6 +131,20 @@
             </summary>
             <param name="guid">Id da produtora a ser obtida</param>
             <returns>Dados da produtora obtida</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IProdutoraRepository.ObterFilhas(System.Guid)">
+            <summary>
+            Obtém produtoras filhas do contexto a partir do Id da produtora mãe
+            </summary>
+            <param name="id">Id da produtora mãe</param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IProdutoraRepository.ObterJogos(System.Guid)">
+            <summary>
+            Obtém jogos produzidos pela produtora
+            </summary>
+            <param name="id">Id da produtora</param>
+            <returns>Lista de jogos obtidos</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Repositories.IProdutoraRepository.Inserir(ApiCatalogoJogos.Business.Entities.Produtora)">
             <summary>
@@ -212,12 +226,6 @@
             </summary>
             <param name="id">Id da produtora</param>
         </member>
-        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.ObterFilhas(System.Guid)">
-            <summary>
-            Obtém produtoras filhas de uma produtora
-            </summary>
-            <param name="id">Id da produtora mãe</param>
-        </member>
         <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Inserir(ApiCatalogoJogos.Model.InputModel.ProdutoraInputModel)">
             <summary>
             Insere nova produtora
@@ -249,12 +257,12 @@
         </member>
         <member name="T:ApiCatalogoJogos.Services.IJogoService">
             <summary>
-            Contrato para classe que estabele comunicação entre JogoController e IJogoRepository
+            Contrato para classe que gerencia operações no repositório utilizando Models
             </summary>
         </member>
         <member name="M:ApiCatalogoJogos.Services.IJogoService.Obter(System.Int32,System.Int32)">
             <summary>
-            Obtém uma quantidade definida de jogos do repositório a partir de um offset
+            Obtém uma quantidade definida de ViewModels de jogos a partir de um offset
             </summary>
             <param name="pagina">Offset (1 = nenhum offset)</param>
             <param name="quantidade">Quantidade de jogos por página</param>
@@ -262,7 +270,7 @@
         </member>
         <member name="M:ApiCatalogoJogos.Services.IJogoService.Obter(System.Guid)">
             <summary>
-            Obtém jogo do respositório pelo id
+            Obtém ViewModel de jogo do respositório pelo id
             </summary>
             <param name="id">Id do jogo a ser obtido</param>
             <returns>Jogo obtido</returns>
@@ -270,7 +278,7 @@
         </member>
         <member name="M:ApiCatalogoJogos.Services.IJogoService.Inserir(ApiCatalogoJogos.Model.InputModel.JogoInputModel)">
             <summary>
-            Insere jogo no repositorio
+            Insere jogo no repositorio a partir de uma InputModel
             </summary>
             <param name="jogoInput">Jogo a ser inserido</param>
             <returns>Jogo inserido</returns>
@@ -278,7 +286,7 @@
         </member>
         <member name="M:ApiCatalogoJogos.Services.IJogoService.Atualizar(System.Guid,ApiCatalogoJogos.Model.InputModel.JogoInputModel)">
             <summary>
-            Atualiza todos os dados de um jogo cadastrado
+            Atualiza todos os dados de um jogo cadastrado para os dados de uma InputModel
             </summary>
             <param name="id">Id do jogo a ser atualizado</param>
             <param name="jogoInput">Novos dados para o jogo</param>
@@ -308,14 +316,6 @@
             <param name="isoPais">ISO de duas letras do país de origem das produtoras a serem obtidas</param>
             <returns>Lista das produtoras obtidas</returns>
             <exception cref="T:ApiCatalogoJogos.Exceptions.PaisInexistenteException">Se ocorrer um erro na validação do ISO</exception>
-        </member>
-        <member name="M:ApiCatalogoJogos.Services.IProdutoraService.ObterFilhas(System.Guid)">
-            <summary>
-            Obtém todas as produtoras filhas de uma produtora mãe no repositório
-            </summary>
-            <param name="idMae">Produtora da qual serão obtidas as filhas</param>
-            <returns>Lista das produtoras filhas</returns>
-            <exception cref="T:ApiCatalogoJogos.Exceptions.EntidadeNaoCadastradaException">Se não é possível encontrar a produtora mãe</exception>
         </member>
         <member name="M:ApiCatalogoJogos.Services.IProdutoraService.Obter(System.Guid)">
             <summary>

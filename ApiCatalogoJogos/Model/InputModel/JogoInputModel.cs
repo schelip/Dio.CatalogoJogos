@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ApiCatalogoJogos.Model.InputModel
 {
@@ -8,8 +9,7 @@ namespace ApiCatalogoJogos.Model.InputModel
         [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do jogo deve conter entre 3 e 100 caracteres")]
         public string Nome { get; set; }
         [Required(ErrorMessage = "É necessário informar a produtora do jogo.")]
-        [StringLength(100, MinimumLength = 1, ErrorMessage = "O nome da produtora deve conter entre 1 e 100 caracteres")]
-        public string Produtora { get; set; }
+        public Guid ProdutoraId { get; set; }
         public int Ano { get; set; } = -1;
     }
 }

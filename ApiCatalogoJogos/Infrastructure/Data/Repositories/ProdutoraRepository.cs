@@ -20,26 +20,41 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
 
         public async Task<List<Produtora>> Obter(int pagina, int quantidade)
         {
-            var produtoras = await _context.Produtoras.ToListAsync();
-            return produtoras.Skip((pagina - 1) * quantidade).Take(quantidade).ToList();
+            return await _context.Produtoras.AsQueryable()
+                .Skip((pagina - 1) * quantidade)
+                .Take(quantidade)
+                .ToListAsync();
         }
 
         public async Task<List<Produtora>> Obter(string isoPais)
         {
-            var produtoras = await _context.Produtoras.ToListAsync();
-            return produtoras.Where(p => p.isoPais == isoPais).ToList();
+            return await _context.Produtoras.Where(p => p.ISOPais == isoPais).ToListAsync();
         }
 
         public async Task<Produtora> Obter(string nome, string isoPais)
         {
-            var produtoras = await _context.Produtoras.ToListAsync();
-            return produtoras.FirstOrDefault(p => p.isoPais == isoPais
-                                                       && p.Nome == nome);
+            return await _context.Produtoras.FirstOrDefaultAsync(p => p.Nome == nome
+                                                                      && p.ISOPais == isoPais);
         }
 
         public async Task<Produtora> Obter(Guid id)
         {
             return await _context.Produtoras.FindAsync(id);
+        }
+
+        public async Task<List<Produtora>> ObterFilhas(Guid id)
+        {
+            return await _context.Produtoras.Where(p => p.ProdutoraMae.Id == id).ToListAsync();
+        }
+
+        public async Task<List<Jogo>> ObterJogos(Guid id)
+        {
+            var jogos = await _context.Jogos.Where(j => j.ProdutoraId == id).ToListAsync();
+            foreach (var filha in await ObterFilhas(id))
+            {
+                jogos.AddRange(await ObterJogos(filha.Id));
+            }
+            return jogos;
         }
 
         public async Task<Produtora> Inserir(Produtora produtora)
@@ -58,13 +73,8 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
 
         public async Task<Produtora> Atualizar(Produtora mae, Produtora filha)
         {
-            if (filha.ProdutoraMae != null)
-                filha.ProdutoraMae.ProdutorasFilhas.Remove(filha);
-
-            mae.ProdutorasFilhas.Add(filha);
             filha.ProdutoraMae = mae;
 
-            _context.Update(mae);
             _context.Update(filha);
 
             await _context.SaveChangesAsync();

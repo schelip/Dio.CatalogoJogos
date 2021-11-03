@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Entities;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
 {
@@ -19,7 +20,10 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
 
         public async Task<List<Jogo>> Obter(int pagina, int quantidade)
         {
-            return await Task.FromResult(_context.Jogos.Skip((pagina - 1) * quantidade).Take(quantidade).ToList());
+            return await _context.Jogos.AsQueryable()
+                .Skip((pagina - 1) * quantidade)
+                .Take(quantidade)
+                .ToListAsync();
         }
 
         public async Task<Jogo> Obter(Guid id)
@@ -27,10 +31,10 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
             return await _context.Jogos.FindAsync(id);
         }
 
-        public async Task<List<Jogo>> Obter(string nome, string produtora)
+        public async Task<List<Jogo>> Obter(string nome, Guid idProdutora)
         {
-            return await Task.FromResult(_context.Jogos.Where(jogo => jogo.Nome == nome
-                                                                       && jogo.Produtora == produtora).ToList());
+            return await _context.Jogos.Where(jogo => jogo.Nome == nome
+                                                       && jogo.ProdutoraId == idProdutora).ToListAsync();
         }
 
         public async Task Inserir(Jogo jogo)

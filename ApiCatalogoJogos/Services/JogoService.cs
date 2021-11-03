@@ -12,45 +12,33 @@ namespace ApiCatalogoJogos.Services
 {
     public class JogoService : IJogoService
     {
-        private readonly IJogoRepository _jogoRepository;
+        private readonly IJogoRepository _repository;
 
-        public JogoService(IJogoRepository jogoRepository)
+        public JogoService(IJogoRepository repository)
         {
-            _jogoRepository = jogoRepository;
+            _repository = repository;
         }
 
         public async Task<List<JogoViewModel>> Obter(int pagina, int quantidade)
         {
-            var jogos = await _jogoRepository.Obter(pagina, quantidade);
+            var jogos = await _repository.Obter(pagina, quantidade);
 
-            return jogos.Select(jogo => new JogoViewModel()
-            {
-                Id = jogo.Id,
-                Nome = jogo.Nome,
-                Produtora = jogo.Produtora,
-                Ano = jogo.Ano
-            }).ToList();
+            return await ObterViewModels(jogos);
         }
 
         public async Task<JogoViewModel> Obter(Guid id)
         {
-            var jogo = await _jogoRepository.Obter(id);
+            var jogo = await _repository.Obter(id);
 
             if (jogo == null)
                 throw new EntidadeNaoCadastradaException("Jogo não cadastrado");
 
-            return new JogoViewModel()
-            {
-                Id = jogo.Id,
-                Nome = jogo.Nome,
-                Produtora = jogo.Produtora,
-                Ano = jogo.Ano
-            };
+            return await ObterViewModel(jogo);
         }
 
         public async Task<JogoViewModel> Inserir(JogoInputModel jogoInput)
         {
-            var jogos = await _jogoRepository.Obter(jogoInput.Nome, jogoInput.Produtora);
+            var jogos = await _repository.Obter(jogoInput.Nome, jogoInput.ProdutoraId);
 
             if (jogos.Count > 0)
             {
@@ -63,56 +51,68 @@ namespace ApiCatalogoJogos.Services
             {
                 Id = Guid.NewGuid(),
                 Nome = jogoInput.Nome,
-                Produtora = jogoInput.Produtora,
+                ProdutoraId = jogoInput.ProdutoraId,
                 Ano = jogoInput.Ano
             };
 
-            await _jogoRepository.Inserir(jogo);
+            await _repository.Inserir(jogo);
 
-            return new JogoViewModel()
-            {
-                Id = jogo.Id,
-                Nome = jogo.Nome,
-                Produtora = jogo.Produtora,
-                Ano = jogo.Ano
-            };
+            return await ObterViewModel(jogo);
         }
 
         public async Task<JogoViewModel> Atualizar(Guid id, JogoInputModel jogoInput)
         {
-            var jogo = await _jogoRepository.Obter(id);
+            var jogo = await _repository.Obter(id);
 
             if (jogo == null)
                 throw new EntidadeNaoCadastradaException("Jogo não cadastrado");
 
             jogo.Nome = jogoInput.Nome;
-            jogo.Produtora = jogoInput.Produtora;
+            jogo.ProdutoraId = jogoInput.ProdutoraId;
             jogo.Ano = jogoInput.Ano;
 
-            await _jogoRepository.Atualizar(jogo);
+            await _repository.Atualizar(jogo);
 
-            return new JogoViewModel()
-            {
-                Id = jogo.Id,
-                Nome = jogo.Nome,
-                Produtora = jogo.Produtora,
-                Ano = jogo.Ano
-            };
+            return await ObterViewModel(jogo);
         }
 
         public async Task Remover(Guid id)
         {
-            var jogo = await _jogoRepository.Obter(id);
+            var jogo = await _repository.Obter(id);
 
             if (jogo == null)
                 throw new EntidadeNaoCadastradaException("Jogo não cadastrado");
 
-            await _jogoRepository.Remover(id);
+            await _repository.Remover(id);
         }
 
         public void Dispose()
         {
-            _jogoRepository?.Dispose();
+            _repository?.Dispose();
+        }
+
+        // Util
+        private async Task<JogoViewModel> ObterViewModel(Jogo jogo)
+        {
+            return new JogoViewModel()
+            {
+                Id = jogo.Id,
+                Nome = jogo.Nome,
+                ProdutoraId = jogo.ProdutoraId,
+                Ano = jogo.Ano
+            };
+        }
+
+        private async Task<List<JogoViewModel>> ObterViewModels(List<Jogo> jogos)
+        {
+            var list = new List<JogoViewModel>();
+
+            foreach (var jogo in jogos)
+            {
+                list.Add(await ObterViewModel(jogo));
+            }
+
+            return list;
         }
     }
 }

@@ -7,8 +7,9 @@ namespace ApiCatalogoJogos.Model.ViewModel
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
-        public string isoPais { get; set; }
-        public ProdutoraViewModel ProdutoraMae { get; set; }
-        public List<ProdutoraViewModel> ProdutorasFilhas { get; set; }
+        public string ISOPais { get; set; }
+        public Guid ProdutoraMaeId;
+        public List<Guid> ProdutorasFilhas { get; set; }
+        public List<Guid> JogosProduzidos { get; set; }
     }
 }

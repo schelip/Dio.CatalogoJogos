@@ -4,14 +4,16 @@ using ApiCatalogoJogos.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ApiCatalogoJogos.Migrations
 {
     [DbContext(typeof(CatalogoJogosDbContext))]
-    partial class CatalogoJogosDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211101040017_Add-Produtoras")]
+    partial class AddProdutoras
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

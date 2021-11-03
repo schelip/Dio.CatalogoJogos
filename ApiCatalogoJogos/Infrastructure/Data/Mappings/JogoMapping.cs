@@ -12,8 +12,12 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Mappings
             builder.HasKey(p => p.Id);
             builder.Property(p => p.Id);
             builder.Property(p => p.Nome);
-            builder.Property(p => p.Produtora);
             builder.Property(p => p.Ano);
+            builder.Property(p => p.ProdutoraId);
+            builder.HasOne(p => p.Produtora)
+                .WithMany()
+                .IsRequired()
+                .HasForeignKey(p => p.ProdutoraId);
         }
     }
 }

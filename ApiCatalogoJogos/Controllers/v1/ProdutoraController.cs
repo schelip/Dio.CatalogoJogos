@@ -51,7 +51,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         [SwaggerResponse(statusCode: 200, description: "Retorna as produtoras obtidas", Type = typeof(List<ProdutoraViewModel>))]
         [SwaggerResponse(statusCode: 204, description: "Nenhuma produtora desse país cadastrada")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
-        [HttpGet("{isoPais:string}")]
+        [HttpGet("{isoPais}")]
         public async Task<ActionResult<List<ProdutoraViewModel>>> Obter([FromRoute] string isoPais)
         {
             try
@@ -91,36 +91,10 @@ namespace ApiCatalogoJogos.Controllers.v1
         }
 
         /// <summary>
-        /// Obtém produtoras filhas de uma produtora
-        /// </summary>
-        /// <param name="id">Id da produtora mãe</param>
-        [SwaggerResponse(statusCode: 200, description: "Retorna as produtoras obtidas", Type = typeof(List<ProdutoraViewModel>))]
-        [SwaggerResponse(statusCode: 204, description: "Nenhuma produtora filha cadastrada")]
-        [SwaggerResponse(statusCode: 404, description: "Produtora mãe não encontrada")]
-        [SwaggerResponse(statusCode: 500, description: "Erro interno")]
-        [HttpGet("{id:guid}/filhas")]
-        public async Task<ActionResult<List<ProdutoraViewModel>>> ObterFilhas([FromRoute] Guid id)
-        {
-            try
-            {
-                var filhas = await _service.ObterFilhas(id);
-
-                if (filhas.Count() == 0)
-                    return NoContent();
-                
-                return Ok(filhas);
-            }
-            catch(EntidadeNaoCadastradaException ex)
-            {
-                return NotFound(ex);
-            }
-        }
-
-        /// <summary>
         /// Insere nova produtora
         /// </summary>
         /// <param name="produtoraInput">Produtora a ser inserida</param>
-        [SwaggerResponse(statusCode: 200, description: "Retorna a produtora inserida", Type = typeof(ProdutoraViewModel))]
+        [SwaggerResponse(statusCode: 201, description: "Retorna a produtora inserida", Type = typeof(ProdutoraViewModel))]
         [SwaggerResponse(statusCode: 422, description: "Erro durante a inserção")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPost]
@@ -132,9 +106,14 @@ namespace ApiCatalogoJogos.Controllers.v1
 
                 return Created("", produtora);
             }
-            catch (Exception ex) when (ex is PaisInexistenteException || ex is EntidadeJaCadastradaException)
+            catch (Exception ex) when (ex is PaisInexistenteException || ex is EntidadeNaoCadastradaException)
             {
-                return UnprocessableEntity(ex);
+                return UnprocessableEntity(ex.Message);
+            }
+            catch (EntidadeJaCadastradaException ex)
+            {
+
+                return UnprocessableEntity(ex.Message + "\nId da Produtora Confiltante: " + ex.Data["IdProdutoraConflitante"]);
             }
         }
 
@@ -157,7 +136,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 

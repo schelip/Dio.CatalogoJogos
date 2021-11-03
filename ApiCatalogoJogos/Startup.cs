@@ -71,7 +71,7 @@ namespace ApiCatalogoJogos
                 });
             }
 
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 

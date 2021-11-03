@@ -37,16 +37,6 @@ namespace ApiCatalogoJogos.Services
             return await ObterViewModels(produtoras);
         }
 
-        public async Task<List<ProdutoraViewModel>> ObterFilhas(Guid id)
-        {
-            var produtora = await _repository.Obter(id);
-
-            if (produtora == null)
-                throw new EntidadeNaoCadastradaException("Produtora não cadastrada");
-
-            return await ObterViewModels(produtora.ProdutorasFilhas);
-        }
-
         public async Task<ProdutoraViewModel> Obter(Guid id)
         {
             var produtora = await _repository.Obter(id);
@@ -59,19 +49,28 @@ namespace ApiCatalogoJogos.Services
 
         public async Task<ProdutoraViewModel> Inserir(ProdutoraInputModel produtoraInput)
         {
-            if (!ValidaPais(produtoraInput.isoPais))
+            if (!ValidaPais(produtoraInput.ISOPais))
                 throw new PaisInexistenteException("País não encontrado");
 
-            var produtoraConflitante = await _repository.Obter(produtoraInput.Nome, produtoraInput.isoPais);
+            var produtoraConflitante = await _repository.Obter(produtoraInput.Nome, produtoraInput.ISOPais);
 
             if (produtoraConflitante != null)
             {
-                var ex = new EntidadeJaCadastradaException("Entidade com mesmo nome e país de origem já cadastrada");
-                ex.Data.Add("ProdutoraConflitante", produtoraConflitante);
+                var ex = new EntidadeJaCadastradaException("Produtora com mesmo nome e país de origem já cadastrada");
+                ex.Data.Add("IdProdutoraConflitante", produtoraConflitante.Id);
                 throw ex;
             }
 
-            var produtora = new Produtora();
+            var produtora = new Produtora()
+            {
+                Id = Guid.NewGuid(),
+                Nome = produtoraInput.Nome,
+                ISOPais = produtoraInput.ISOPais,
+                ProdutoraMae = produtoraInput.ProdutoraMaeId.HasValue
+                    ? await _repository.Obter(produtoraInput.ProdutoraMaeId.Value)
+                    ?? throw new EntidadeNaoCadastradaException("Produtora mãe com id informado não encontrada")
+                    : null
+        };
 
             await _repository.Inserir(produtora);
 
@@ -85,12 +84,15 @@ namespace ApiCatalogoJogos.Services
             if (produtora == null)
                 throw new EntidadeNaoCadastradaException("Entidade não cadastrada");
 
-            if (!ValidaPais(produtoraInput.isoPais))
+            if (!ValidaPais(produtoraInput.ISOPais))
                 throw new PaisInexistenteException("País não encontrado");
 
             produtora.Nome = produtoraInput.Nome;
-            produtora.isoPais = produtoraInput.isoPais;
-            produtora.ProdutoraMae = await _repository.Obter(produtoraInput.IdProdutoraMae);
+            produtora.ISOPais = produtoraInput.ISOPais;
+            produtora.ProdutoraMae = produtoraInput.ProdutoraMaeId.HasValue
+                ? await _repository.Obter(produtoraInput.ProdutoraMaeId.Value)
+                ?? throw new EntidadeNaoCadastradaException()
+                : null;
 
             await _repository.Atualizar(produtora);
 
@@ -108,7 +110,7 @@ namespace ApiCatalogoJogos.Services
             if (filha == null)
                 throw new EntidadeNaoCadastradaException("Produtora filha não cadastrada");
 
-            if (mae.ProdutorasFilhas.Contains(filha))
+            if ((await _repository.ObterFilhas(mae.Id)).Contains(filha))
                 throw new EntidadeJaCadastradaException("Produtoras já estão cadastradas como mãe e filha");
 
             var produtora = await _repository.Atualizar(mae, filha);
@@ -134,13 +136,16 @@ namespace ApiCatalogoJogos.Services
         // Util
         private async Task<ProdutoraViewModel> ObterViewModel(Produtora produtora)
         {
+            var filhas = await _repository.ObterFilhas(produtora.Id);
+
             return new ProdutoraViewModel()
             {
                 Id = produtora.Id,
                 Nome = produtora.Nome,
-                isoPais = produtora.isoPais,
-                ProdutoraMae = await Obter(produtora.ProdutoraMae.Id),
-                ProdutorasFilhas = await ObterFilhas(produtora.Id)
+                ISOPais = produtora.ISOPais,
+                ProdutoraMaeId = produtora.ProdutoraMae == null ? Guid.Empty : produtora.ProdutoraMae.Id,
+                ProdutorasFilhas = filhas.Select(f => f.Id).ToList(),
+                JogosProduzidos = (await _repository.ObterJogos(produtora.Id)).Select(j => j.Id).ToList()
             };
         }
 
@@ -150,13 +155,24 @@ namespace ApiCatalogoJogos.Services
 
             foreach (var produtora in produtoras)
             {
-                list.Add(new ProdutoraViewModel()
+                list.Add(await ObterViewModel(produtora));
+            }
+
+            return list;
+        }
+
+        private List<JogoViewModel> ObterViewModels(List<Jogo> jogos)
+        {
+            List<JogoViewModel> list = new List<JogoViewModel>();
+
+            foreach (var jogo in jogos)
+            {
+                list.Add(new JogoViewModel()
                 {
-                    Id = produtora.Id,
-                    Nome = produtora.Nome,
-                    isoPais = produtora.isoPais,
-                    ProdutoraMae = await Obter(produtora.ProdutoraMae.Id),
-                    ProdutorasFilhas = await ObterFilhas(produtora.Id)
+                    Id = jogo.Id,
+                    Nome = jogo.Nome,
+                    ProdutoraId = jogo.ProdutoraId,
+                    Ano = jogo.Ano
                 });
             }
 
@@ -167,7 +183,7 @@ namespace ApiCatalogoJogos.Services
         {
             return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
                 .Select(ci => new RegionInfo(ci.LCID))
-                .Any(ri => ri.Name.Equals(isoPais, StringComparison.InvariantCulture));
+                .Any(ri => ri.TwoLetterISORegionName == isoPais.ToUpper());
         }
     }
 }

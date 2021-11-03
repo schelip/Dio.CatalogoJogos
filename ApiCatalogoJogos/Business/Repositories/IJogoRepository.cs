@@ -31,9 +31,9 @@ namespace ApiCatalogoJogos.Business.Repositories
         /// Utilizada para resolver conflitos (Lista vazia: nenhum conflito)
         /// </summary>
         /// <param name="nome">Nome dos jogos</param>
-        /// <param name="produtora">Produtora dos jogos</param>
+        /// <param name="idProdutora">Id da produtora do jogo</param>
         /// <returns>Lista de jogos desse nome e produtora</returns>
-        Task<List<Jogo>> Obter(string nome, string produtora);
+        Task<List<Jogo>> Obter(string nome, Guid idProdutora);
         /// <summary>
         /// Insere jogo no contexto
         /// </summary>

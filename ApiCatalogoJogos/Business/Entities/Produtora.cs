@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ApiCatalogoJogos.Business.Entities
 {
@@ -16,14 +15,12 @@ namespace ApiCatalogoJogos.Business.Entities
         /// <summary>
         /// ISO de dois caracteres do país de origem da produtora
         /// </summary>
-        public string isoPais { get; set; }
+        public string ISOPais { get; set; }
+#nullable enable
         /// <summary>
         /// Produtora mãe da produtora
         /// </summary>
-        public Produtora ProdutoraMae { get; set; }
-        /// <summary>
-        /// Lista das produtoras filhas da produtora
-        /// </summary>
-        public List<Produtora> ProdutorasFilhas { get; set; }
+        public Produtora? ProdutoraMae { get; set; }
+#nullable disable
     }
 }

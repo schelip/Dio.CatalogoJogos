@@ -34,6 +34,18 @@ namespace ApiCatalogoJogos.Business.Repositories
         /// <returns>Dados da produtora obtida</returns>
         Task<Produtora> Obter(Guid guid);
         /// <summary>
+        /// Obtém produtoras filhas do contexto a partir do Id da produtora mãe
+        /// </summary>
+        /// <param name="id">Id da produtora mãe</param>
+        /// <returns></returns>
+        Task<List<Produtora>> ObterFilhas(Guid id);
+        /// <summary>
+        /// Obtém jogos produzidos pela produtora
+        /// </summary>
+        /// <param name="id">Id da produtora</param>
+        /// <returns>Lista de jogos obtidos</returns>
+        Task<List<Jogo>> ObterJogos(Guid id);
+        /// <summary>
         /// Insere produtora no contexto
         /// </summary>
         /// <param name="produtora">Produtora a ser inserida</param>
