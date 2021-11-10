@@ -2,10 +2,8 @@
 
 namespace ApiCatalogoJogos.Infrastructure.Model.ViewModel
 {
-    public class JogoViewModel
+    public class JogoViewModel : ViewModelBase
     {
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
         public Guid ProdutoraId { get; set; }
         public int Ano { get; set; }
     }
