@@ -1,9 +1,9 @@
 ﻿using System;
-using ApiCatalogoJogos.Business.Entities;
+using ApiCatalogoJogos.Business.Entities.Named;
 
 namespace ApiCatalogoJogos.Business.Repositories
 {
-    public interface IJogoRepository : IRepositoryBase<Jogo>, IDisposable
+    public interface IJogoRepository : IRepositoryBase<Jogo>
     {
     }
 }

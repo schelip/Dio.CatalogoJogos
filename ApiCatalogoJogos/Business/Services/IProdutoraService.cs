@@ -4,7 +4,7 @@ using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 
 namespace ApiCatalogoJogos.Business.Services
 {
-    public interface IProdutoraService : IServiceBase<ProdutoraInputModel, ProdutoraViewModel>, IDisposable
+    public interface IProdutoraService : IServiceBase<ProdutoraInputModel, ProdutoraViewModel>
     {
     }
 }

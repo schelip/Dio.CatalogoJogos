@@ -9,7 +9,7 @@ namespace ApiCatalogoJogos.Business.Services
     /// <summary>
     /// Contrato para classe que gerencia operações no repositório utilizando Models
     /// </summary>
-    public interface IServiceBase<TInputModel, TViewModel>
+    public interface IServiceBase<TInputModel, TViewModel> : IDisposable
         where TInputModel : InputModelBase
         where TViewModel : ViewModelBase
     {

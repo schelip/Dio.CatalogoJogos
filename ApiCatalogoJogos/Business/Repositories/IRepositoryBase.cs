@@ -5,7 +5,7 @@ using ApiCatalogoJogos.Business.Entities;
 
 namespace ApiCatalogoJogos.Business.Repositories
 {
-    public interface IRepositoryBase<T> where T : EntityBase
+    public interface IRepositoryBase<T> : IDisposable where T : EntityBase
     {
         /// <summary>
         /// Obtém uma determinada quantidade de entidades do contexto a partir de um offset
@@ -34,6 +34,13 @@ namespace ApiCatalogoJogos.Business.Repositories
         /// <returns>Entidade obtida</returns>
         Task<T> Obter(Guid id);
         /// <summary>
+        /// Obtém entidade de um tipo possivelmente diferente de <c>T</c> 
+        /// </summary>
+        /// <typeparam name="TExternal">Tipo da entidade a ser obtida</typeparam>
+        /// <param name="id">Id da entidade a ser obtida</param>
+        /// <returns>Entidade obtida</returns>
+        Task<TExternal> Obter<TExternal>(Guid id) where TExternal : EntityBase;
+        /// <summary>
         /// Insere entidade no contexto
         /// </summary>
         /// <param name="entidade">Entidade a ser inserida</param>
@@ -51,6 +58,5 @@ namespace ApiCatalogoJogos.Business.Repositories
         /// <param name="id">Id da entidade a ser removida</param>
         /// <returns></returns>
         Task Remover(Guid id);
-        void Dispose();
     }
 }

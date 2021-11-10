@@ -1,4 +1,5 @@
 ﻿using System;
+using ApiCatalogoJogos.Business.Entities;
 
 namespace ApiCatalogoJogos.Business.Exceptions
 {
@@ -9,6 +10,8 @@ namespace ApiCatalogoJogos.Business.Exceptions
     public class EntidadeNaoCadastradaException : Exception
     {
         public EntidadeNaoCadastradaException() : base("Entidade não cadastrada") { }
+        public EntidadeNaoCadastradaException(Guid guid)
+            : base($"Entidade de id {guid} não cadastrada") { }
         public EntidadeNaoCadastradaException(string message) : base(message) { }
         public EntidadeNaoCadastradaException(string message, Exception inner) : base(message, inner) { }
         protected EntidadeNaoCadastradaException(
