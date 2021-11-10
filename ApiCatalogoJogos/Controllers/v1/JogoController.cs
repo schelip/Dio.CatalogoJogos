@@ -61,7 +61,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeNaoCadastradaException)
             {
-                return NotFound();
+                return NotFound($"Jogo de id {id} não encontrado");
             }
         }
 

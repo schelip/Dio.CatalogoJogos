@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Exceptions;
@@ -56,7 +57,10 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
-                var produtoras = await _service.Obter(isoPais);
+                if (!ValidaPais(isoPais))
+                    return BadRequest("ISO de país informado não é válido");
+
+                var produtoras = await _service.Obter(("ISOPais", isoPais));
 
                 if (produtoras.Count == 0)
                     return NoContent();
@@ -95,6 +99,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         /// </summary>
         /// <param name="produtoraInput">Produtora a ser inserida</param>
         [SwaggerResponse(statusCode: 201, description: "Retorna a produtora inserida", Type = typeof(ProdutoraViewModel))]
+        [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
         [SwaggerResponse(statusCode: 422, description: "Erro durante a inserção")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPost]
@@ -102,6 +107,9 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
+                if (!ValidaPais(produtoraInput.ISOPais))
+                    return BadRequest("ISO de país informado não é válido");
+
                 var produtora = await _service.Inserir(produtoraInput);
 
                 return Created("", produtora);
@@ -123,6 +131,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         /// <param name="id">Id da produtora a ser atualizada</param>
         /// <param name="produtoraInput">Produtora com as novas características configuradas</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna a produtora atualizada", Type = typeof(ProdutoraViewModel))]
+        [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
         [SwaggerResponse(statusCode: 404, description: "Produtora não encontrada")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPut("{id:guid}")]
@@ -130,6 +139,9 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
+                if (!ValidaPais(produtoraInput.ISOPais))
+                    return BadRequest("ISO de país informado não é válido");
+
                 var produtora = await _service.Atualizar(id, produtoraInput);
 
                 return Ok(produtora);
@@ -160,6 +172,14 @@ namespace ApiCatalogoJogos.Controllers.v1
             {
                 return NotFound(ex);
             }
+        }
+
+        // Util
+        private static bool ValidaPais(string isoPais)
+        {
+            return CultureInfo.GetCultures(CultureTypes.SpecificCultures)
+                .Select(ci => new RegionInfo(ci.LCID))
+                .Any(ri => ri.TwoLetterISORegionName == isoPais.ToUpper());
         }
     }
 }
