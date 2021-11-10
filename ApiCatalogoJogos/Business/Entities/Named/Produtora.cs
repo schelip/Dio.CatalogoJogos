@@ -1,6 +1,6 @@
-﻿namespace ApiCatalogoJogos.Business.Entities
+﻿namespace ApiCatalogoJogos.Business.Entities.Named
 {
-    public class Produtora : EntityBase
+    public class Produtora : NamedEntityBase
     {
         /// <summary>
         /// ISO de dois caracteres do país de origem da produtora

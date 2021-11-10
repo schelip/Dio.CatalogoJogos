@@ -8,9 +8,5 @@ namespace ApiCatalogoJogos.Business.Entities
         /// Id da entidade
         /// </summary>
         public Guid Id { get; set; }
-        /// <summary>
-        /// Nome da entidade
-        /// </summary>
-        public string Nome { get; set; }
     }
 }
