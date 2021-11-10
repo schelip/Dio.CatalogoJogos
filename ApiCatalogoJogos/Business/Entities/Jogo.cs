@@ -2,16 +2,8 @@
 
 namespace ApiCatalogoJogos.Business.Entities
 {
-    public class Jogo
+    public class Jogo : EntityBase
     {
-        /// <summary>
-        /// Id do jogo
-        /// </summary>
-        public Guid Id { get; set; }
-        /// <summary>
-        /// Nome do jogo
-        /// </summary>
-        public string Nome { get; set; }
         /// <summary>
         /// Ano de lançamento do jogo (-1: não definido)
         /// </summary>

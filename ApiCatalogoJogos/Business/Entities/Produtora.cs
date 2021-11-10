@@ -1,17 +1,7 @@
-﻿using System;
-
-namespace ApiCatalogoJogos.Business.Entities
+﻿namespace ApiCatalogoJogos.Business.Entities
 {
-    public class Produtora
+    public class Produtora : EntityBase
     {
-        /// <summary>
-        /// Id da produtora
-        /// </summary>
-        public Guid Id { get; set; }
-        /// <summary>
-        /// Nome da produtora
-        /// </summary>
-        public string Nome { get; set; }
         /// <summary>
         /// ISO de dois caracteres do país de origem da produtora
         /// </summary>
