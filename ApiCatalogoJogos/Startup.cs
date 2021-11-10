@@ -2,12 +2,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Business.Services;
 using ApiCatalogoJogos.Data.Infrastructure;
 using ApiCatalogoJogos.Extensions;
-using ApiCatalogoJogos.Infrastructure.Data.Repositories;
-using ApiCatalogoJogos.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,8 +26,10 @@ namespace ApiCatalogoJogos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AddInjections("Services", services);
-            AddInjections("Repositories", services);
+            AddInjections("ApiCatalogoJogos.Business.Repositories",
+                "ApiCatalogoJogos.Infrastructure.Data.Repositories", services);
+            AddInjections("ApiCatalogoJogos.Business.Services",
+                "ApiCatalogoJogos.Infrastructure.Services", services);
 
             services.AddDbContext<CatalogoJogosDbContext>(options =>
             {
@@ -86,21 +84,19 @@ namespace ApiCatalogoJogos
         }
 
         // Util
-        private void AddInjections(string name, IServiceCollection services)
+        private void AddInjections(string contractNamespace, string implementationNamespace, IServiceCollection services)
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            var iTypes = Helpers.GetTypes("ApiCatalogoJogo.Business." + name, assembly)
-            .Where(i => !i.Name.EndsWith("Base"));
-            foreach (var i in iTypes)
+            var contractTypes = Helpers.GetTypes(contractNamespace, assembly)
+            .Where(t => !t.Name.Contains("Base"));
+            foreach (var ct in contractTypes)
             {
-                var className = i.Name.Skip(1).ToString();
-                var c = Helpers.GetTypes("ApiCatalogoJogos.Infrastructure." + name, assembly)
-                    .Where(i => !i.Name.EndsWith("Base"))
-                    .FirstOrDefault(c => c.Name.Equals(className));
-                var method = typeof(IServiceCollection).GetMethod("AddScoped");
-                var generic = method.MakeGenericMethod(i, c);
-                generic.Invoke(services, null);
+                var impName = ct.Name.Substring(1, ct.Name.Length-1);
+                var it = Helpers.GetTypes(implementationNamespace, assembly)
+                    .Where(t => !t.Name.EndsWith("Base"))
+                    .FirstOrDefault(t => t.Name.Equals(impName));
+                services.AddScoped(ct, it);
             };
         }
     }
