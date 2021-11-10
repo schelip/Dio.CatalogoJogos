@@ -1,9 +1,11 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Business.Services;
 using ApiCatalogoJogos.Data.Infrastructure;
+using ApiCatalogoJogos.Extensions;
 using ApiCatalogoJogos.Infrastructure.Data.Repositories;
 using ApiCatalogoJogos.Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
@@ -28,10 +30,8 @@ namespace ApiCatalogoJogos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IJogoService, JogoService>();
-            services.AddScoped<IProdutoraService, ProdutoraService>();
-            services.AddScoped<IJogoRepository, JogoRepository>();
-            services.AddScoped<IProdutoraRepository, ProdutoraRepository>();
+            AddInjections("Services", services);
+            AddInjections("Repositories", services);
 
             services.AddDbContext<CatalogoJogosDbContext>(options =>
             {
@@ -83,6 +83,25 @@ namespace ApiCatalogoJogos
             {
                 endpoints.MapControllers();
             });
+        }
+
+        // Util
+        private void AddInjections(string name, IServiceCollection services)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var iTypes = Helpers.GetTypes("ApiCatalogoJogo.Business." + name, assembly)
+            .Where(i => !i.Name.EndsWith("Base"));
+            foreach (var i in iTypes)
+            {
+                var className = i.Name.Skip(1).ToString();
+                var c = Helpers.GetTypes("ApiCatalogoJogos.Infrastructure." + name, assembly)
+                    .Where(i => !i.Name.EndsWith("Base"))
+                    .FirstOrDefault(c => c.Name.Equals(className));
+                var method = typeof(IServiceCollection).GetMethod("AddScoped");
+                var generic = method.MakeGenericMethod(i, c);
+                generic.Invoke(services, null);
+            };
         }
     }
 }
