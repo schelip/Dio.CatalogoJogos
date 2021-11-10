@@ -4,77 +4,223 @@
         <name>ApiCatalogoJogos</name>
     </assembly>
     <members>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Id">
+        <member name="P:ApiCatalogoJogos.Business.Entities.EntityBase.Id">
             <summary>
-            Id do jogo
+            Id da entidade
             </summary>
         </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Nome">
-            <summary>
-            Nome do jogo
-            </summary>
-        </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Produtora">
-            <summary>
-            Produtora do jogo
-            </summary>
-        </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Jogo.Ano">
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.Ano">
             <summary>
             Ano de lançamento do jogo (-1: não definido)
             </summary>
         </member>
-        <member name="T:ApiCatalogoJogos.Business.Repositories.IJogoRepository">
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.ProdutoraId">
             <summary>
-            Contrato para classe que realiza operações no contexto
+            Id da Produtora do jogo
             </summary>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Obter(System.Int32,System.Int32)">
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.Produtora">
             <summary>
-            Obtém determinada quantidade de jogos do contexto a partir de um offset
+            Produtora do jogo
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.UsuarioJogos">
+            <summary>
+            Usuários que possuem o jogo
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.Valor">
+            <summary>
+            Valor do jogo
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.NamedEntityBase.Nome">
+            <summary>
+            Nome da entidade
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Produtora.ISOPais">
+            <summary>
+            ISO de dois caracteres do país de origem da produtora
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Produtora.ProdutoraMae">
+            <summary>
+            Produtora mãe da produtora
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.Email">
+            <summary>
+            Email utilizado para login
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.Senha">
+            <summary>
+            Senha utilizada para login
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.Fundos">
+            <summary>
+            Quantidade de fundos na carteira
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.UsuarioJogos">
+            <summary>
+            Jogos possuídos
+            </summary>
+        </member>
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.Permissao">
+            <summary>
+            Nível de permissão
+            </summary>
+        </member>
+        <member name="T:ApiCatalogoJogos.Business.Exceptions.EntidadeJaCadastradaException">
+            <summary>
+            Utilizada quando existe conflito entre nova entidade e entidade já cadastrada
+            </summary>
+        </member>
+        <member name="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException">
+            <summary>
+            Utilizada quando entidade buscada não está cadastrada
+            </summary>
+        </member>
+        <member name="T:ApiCatalogoJogos.Business.Exceptions.PaisInexistenteException">
+            <summary>
+            Utilizada quando a validação de um ISO de país falha
+            </summary>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma determinada quantidade de entidades do contexto a partir de um offset
             </summary>
             <param name="pagina">Offset (1 = nenhum offset)</param>
-            <param name="quantidade">Quantidade de jogos por página</param>
-            <returns>Lista de jogos obtida</returns>
+            <param name="quantidade">Quantidade de entidades por página</param>
+            <returns>Lista das entidades obtidas</returns>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Obter(System.Guid)">
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter(System.ValueTuple{System.String,System.Object}[])">
             <summary>
-            Obtém jogo do contexto pelo id
+            Obtém entidades que respeitam uma lista de parametros
             </summary>
-            <param name="id">Id do jogo a ser obtido</param>
-            <returns>
-            Se encontrado: Jogo obtido
-            Se não encontrado: null
-            </returns>
+            <param name="ps">Lista dos parametros que devem ser validados (nome, valor)</param>
+            <returns>Entidades obtidas</returns>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Obter(System.String,System.String)">
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter``1(System.ValueTuple{System.String,System.Object}[])">
             <summary>
-            Obtém lista de jogos do contexto a partir de um nome e produtora.
-            Utilizada para resolver conflitos (Lista vazia: nenhum conflito)
+            Obtém entidades de um tipo possivelmente diferente de <c>T</c> que respeitam uma lista de parametros
             </summary>
-            <param name="nome">Nome dos jogos</param>
-            <param name="produtora">Produtora dos jogos</param>
-            <returns>Lista de jogos desse nome e produtora</returns>
+            <typeparam name="TExternal">Tipo das entidade a serem obtidas</typeparam>
+            <param name="ps">Lista dos parametros que devem ser validados (nome, valor)</param>
+            <returns>Entidades obtidas</returns>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Inserir(ApiCatalogoJogos.Business.Entities.Jogo)">
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter(System.Guid)">
             <summary>
-            Insere jogo no contexto
+            Obtém entidade do contexto pelo seu Id
             </summary>
-            <param name="jogo">Jogo a ser inserido</param>
+            <param name="id">Id da entidade a ser obtida</param>
+            <returns>Entidade obtida</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter``1(System.Guid)">
+            <summary>
+            Obtém entidade de um tipo possivelmente diferente de <c>T</c> 
+            </summary>
+            <typeparam name="TExternal">Tipo da entidade a ser obtida</typeparam>
+            <param name="id">Id da entidade a ser obtida</param>
+            <returns>Entidade obtida</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Inserir(`0)">
+            <summary>
+            Insere entidade no contexto
+            </summary>
+            <param name="entidade">Entidade a ser inserida</param>
+            <returns>Entidade inserida</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Atualizar(`0)">
+            <summary>
+            Atualiza todos os dados de uma produtora no contexto
+            </summary>
+            <param name="entidade">Novos dados da produtora</param>
+            <returns>Entidade atualizada</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Remover(System.Guid)">
+            <summary>
+            Remove entidade do contexto
+            </summary>
+            <param name="id">Id da entidade a ser removida</param>
             <returns></returns>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Atualizar(ApiCatalogoJogos.Business.Entities.Jogo)">
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IUsuarioRepository.AdicionarJogo(ApiCatalogoJogos.Business.Entities.Named.Usuario,ApiCatalogoJogos.Business.Entities.Named.Jogo)">
             <summary>
-            Atualiza todos os dados de um jogo do contexto
+            Adiciona jogo à lista de jogos do usuário
             </summary>
-            <param name="jogo">Jogo a ser atualizado</param>
-            <returns></returns>
+            <param name="usuario">Usuário que adquiriu o jogo</param>
+            <param name="jogo">Jogo que foi adquirido</param>
         </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IJogoRepository.Remover(System.Guid)">
+        <member name="T:ApiCatalogoJogos.Business.Services.IServiceBase`2">
             <summary>
-            Remove jogo do contexto
+            Contrato para classe que gerencia operações no repositório utilizando Models
             </summary>
-            <param name="id">Id do jogo a ser removido</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma quantidade definida de ViewModels de entidades a partir de um offset
+            </summary>
+            <param name="pagina">Offset (1 = nenhum offset)</param>
+            <param name="quantidade">Quantidade de ViewModels por página</param>
+            <returns>Lista das ViewModels obtidas</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Obter(System.ValueTuple{System.String,System.Object}[])">
+            <summary>
+            Obtém ViewModels das entidades que respeitam uma lista de parâmetros
+            </summary>
+            <param name="list">Lista de parâmetros a serem validados</param>
+            <returns>Lista das ViewModels obtidas</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Obter(System.Guid)">
+            <summary>
+            Obtém ViewModel de entidade do respositório pelo Id
+            </summary>
+            <param name="id">Id da entidade a ser obtida</param>
+            <returns>ViewModel obtida</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade cadastrada com esse id</exception>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Inserir(`0)">
+            <summary>
+            Insere entidade no repositório a partir de uma InputModel
+            </summary>
+            <param name="inputModel">InputModel da entidade a ser inserida</param>
+            <returns>ViewModel da entidade inserida</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeJaCadastradaException">Se existe um entidade conflitante já cadastrada</exception>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Atualizar(System.Guid,`0)">
+            <summary>
+            Atualiza todos os dados de uma entidade cadastrada para os dados de uma InputModel
+            </summary>
+            <param name="id">Id do entidade a ser atualizado</param>
+            <param name="inputModel">InputModel com novos dados para a entidade</param>
+            <returns>ViewModel da entidade atualizada</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Remover(System.Guid)">
+            <summary>
+            Remove entidade do repositório
+            </summary>
+            <param name="id">Id da entidade a ser removida</param>
+            <returns></returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.AdicionarJogo(System.Guid,System.Guid)">
+            <summary>
+            Adiciona jogo á lista de jogos de um usuário
+            </summary>
+            <param name="idUsuario">Id do usuário</param>
+            <param name="idJogo">Id do jogo</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.AtualizarFundos(System.Guid,System.Single)">
+            <summary>
+            Atualiza os fundos de um usuário
+            </summary>
+            <param name="guid">Id do usuário</param>
+            <param name="quant">Quantidade de fundos</param>
             <returns></returns>
         </member>
         <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Obter(System.Int32,System.Int32)">
@@ -90,13 +236,13 @@
             </summary>
             <param name="id">Id do jogo</param>
         </member>
-        <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Inserir(ApiCatalogoJogos.Model.InputModel.JogoInputModel)">
+        <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Inserir(ApiCatalogoJogos.Infrastructure.Model.InputModel.JogoInputModel)">
             <summary>
             Insere novo jogo
             </summary>
             <param name="jogoInputModel">Jogo a ser inserido</param>
         </member>
-        <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Atualizar(System.Guid,ApiCatalogoJogos.Model.InputModel.JogoInputModel)">
+        <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Atualizar(System.Guid,ApiCatalogoJogos.Infrastructure.Model.InputModel.JogoInputModel)">
             <summary>
             Atualiza todos os campos de um jogo
             </summary>
@@ -109,61 +255,95 @@
             </summary>
             <param name="id">Id do jogo a ser removido</param>
         </member>
-        <member name="T:ApiCatalogoJogos.Exceptions.EntidadeJaCadastradaException">
+        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Obter(System.Int32,System.Int32)">
             <summary>
-            Utilizada quando existe conflito entre nova entidade e entidade já cadastrada
+            Obtém uma lista de produtoras com uma quantidade e offset definidos
+            </summary>
+            <param name="pagina">Define o offset</param>
+            <param name="quantidade">Define a quantidade em cada pagina</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Obter(System.String)">
+            <summary>
+            Obtém todas as produtoras de um país de origem
+            </summary>
+            <param name="isoPais">Nome do país de origem</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Obter(System.Guid)">
+            <summary>
+            Obtém produtora a partir de seu Id
+            </summary>
+            <param name="id">Id da produtora</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Inserir(ApiCatalogoJogos.Infrastructure.Model.InputModel.ProdutoraInputModel)">
+            <summary>
+            Insere nova produtora
+            </summary>
+            <param name="produtoraInput">Produtora a ser inserida</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Atualizar(System.Guid,ApiCatalogoJogos.Infrastructure.Model.InputModel.ProdutoraInputModel)">
+            <summary>
+            Atualiza todos os campos de uma produtora
+            </summary>
+            <param name="id">Id da produtora a ser atualizada</param>
+            <param name="produtoraInput">Produtora com as novas características configuradas</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.ProdutoraController.Remover(System.Guid)">
+            <summary>
+            Remove produtora
+            </summary>
+            <param name="id">Id da produtora a ser removida</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma lista de usuários com uma quantidade e offset definidos
+            </summary>
+            <param name="pagina">Define o offset</param>
+            <param name="quantidade">Define a quantidade em cada pagina</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Obter(System.Guid)">
+            <summary>
+            Obtém usuário a partir de seu Id
+            </summary>
+            <param name="id">Id do usuário</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Inserir(ApiCatalogoJogos.Infrastructure.Model.InputModel.UsuarioInputModel)">
+            <summary>
+            Insere novo usuário
+            </summary>
+            <param name="usuarioInput">Usuário a ser inserido</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Atualizar(System.Guid,ApiCatalogoJogos.Infrastructure.Model.InputModel.UsuarioInputModel)">
+            <summary>
+            Atualiza todos os campos de um usuário
+            </summary>
+            <param name="id">Id do usuário a ser atualizado</param>
+            <param name="usuarioInput">Usuário com as novas características configuradas</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Remover(System.Guid)">
+            <summary>
+            Remove usuário
+            </summary>
+            <param name="id">Id do usuário a ser removido</param>
+        </member>
+        <member name="T:ApiCatalogoJogos.Enum.PermissaoUsuario">
+            <summary>
+            Enum dos níveis de permissão dos usuários.
             </summary>
         </member>
-        <member name="T:ApiCatalogoJogos.Exceptions.EntidadeNaoCadastradaException">
+        <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Usuario">
             <summary>
-            Utilizada quando entidade buscada não está cadastrada
+            Permissao para visualizar classes (outros usuarios exclusos)
             </summary>
         </member>
-        <member name="T:ApiCatalogoJogos.Services.IJogoService">
+        <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Moderardor">
             <summary>
-            Contrato para classe que estabele comunicação entre JogoController e IJogoRepository
+            Permissao para atualizar e remover usuarios
             </summary>
         </member>
-        <member name="M:ApiCatalogoJogos.Services.IJogoService.Obter(System.Int32,System.Int32)">
+        <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Administrador">
             <summary>
-            Obtém uma quantidade definida de jogos do repositório a partir de um offset
+            Permissao para visualizar, adicionar, atualizar e remover todas as entidades
             </summary>
-            <param name="pagina">Offset (1 = nenhum offset)</param>
-            <param name="quantidade">Quantidade de jogos por página</param>
-            <returns>Lista de jogos obtida</returns>
-        </member>
-        <member name="M:ApiCatalogoJogos.Services.IJogoService.Obter(System.Guid)">
-            <summary>
-            Obtém jogo do respositório pelo id
-            </summary>
-            <param name="id">Id do jogo a ser obtido</param>
-            <returns>Jogo obtido</returns>
-            <exception cref="T:ApiCatalogoJogos.Exceptions.EntidadeNaoCadastradaException">Se não existe um jogo cadastrado com esse id</exception>
-        </member>
-        <member name="M:ApiCatalogoJogos.Services.IJogoService.Inserir(ApiCatalogoJogos.Model.InputModel.JogoInputModel)">
-            <summary>
-            Insere jogo no repositorio
-            </summary>
-            <param name="jogoInput">Jogo a ser inserido</param>
-            <returns>Jogo inserido</returns>
-            <exception cref="T:ApiCatalogoJogos.Exceptions.EntidadeJaCadastradaException">Se jogo com mesmo nome e produtora já está cadastrado</exception>
-        </member>
-        <member name="M:ApiCatalogoJogos.Services.IJogoService.Atualizar(System.Guid,ApiCatalogoJogos.Model.InputModel.JogoInputModel)">
-            <summary>
-            Atualiza todos os dados de um jogo cadastrado
-            </summary>
-            <param name="id">Id do jogo a ser atualizado</param>
-            <param name="jogoInput">Novos dados para o jogo</param>
-            <returns>Jogo atualizado</returns>
-            <exception cref="T:ApiCatalogoJogos.Exceptions.EntidadeNaoCadastradaException">Se não existe um jogo com esse id cadastrado</exception>
-        </member>
-        <member name="M:ApiCatalogoJogos.Services.IJogoService.Remover(System.Guid)">
-            <summary>
-            Remove jogo do repositório
-            </summary>
-            <param name="id">Id do jogo a ser removido</param>
-            <returns></returns>
-            <exception cref="T:ApiCatalogoJogos.Exceptions.EntidadeNaoCadastradaException">Se não existe um jogo com esse id cadastrado</exception>
         </member>
     </members>
 </doc>

@@ -1,11 +1,9 @@
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
-using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Data.Infrastructure;
-using ApiCatalogoJogos.Infrastructure.Data.Repositories;
-using ApiCatalogoJogos.MIddleware;
-using ApiCatalogoJogos.Services;
+using ApiCatalogoJogos.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -28,8 +26,11 @@ namespace ApiCatalogoJogos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IJogoService, JogoService>();
-            services.AddScoped<IJogoRepository, JogoRepository>();
+            AddInjections("ApiCatalogoJogos.Business.Repositories",
+                "ApiCatalogoJogos.Infrastructure.Data.Repositories", services);
+            AddInjections("ApiCatalogoJogos.Business.Services",
+                "ApiCatalogoJogos.Infrastructure.Services", services);
+
             services.AddDbContext<CatalogoJogosDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
@@ -68,7 +69,7 @@ namespace ApiCatalogoJogos
                 });
             }
 
-            app.UseMiddleware<ExceptionMiddleware>();
+            //app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
@@ -80,6 +81,23 @@ namespace ApiCatalogoJogos
             {
                 endpoints.MapControllers();
             });
+        }
+
+        // Util
+        private void AddInjections(string contractNamespace, string implementationNamespace, IServiceCollection services)
+        {
+            var assembly = Assembly.GetExecutingAssembly();
+
+            var contractTypes = Helpers.GetTypes(contractNamespace, assembly)
+            .Where(t => !t.Name.Contains("Base"));
+            foreach (var ct in contractTypes)
+            {
+                var impName = ct.Name.Substring(1, ct.Name.Length-1);
+                var it = Helpers.GetTypes(implementationNamespace, assembly)
+                    .Where(t => !t.Name.EndsWith("Base"))
+                    .FirstOrDefault(t => t.Name.Equals(impName));
+                services.AddScoped(ct, it);
+            };
         }
     }
 }
