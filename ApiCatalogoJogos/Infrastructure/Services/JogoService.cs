@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities;
+using ApiCatalogoJogos.Business.Entities.Composites;
+using ApiCatalogoJogos.Business.Entities.Named;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Business.Services;
 using ApiCatalogoJogos.Infrastructure.Model.InputModel;
@@ -17,12 +19,17 @@ namespace ApiCatalogoJogos.Infrastructure.Services
         protected override async Task<Jogo> ObterEntidade(Guid guid, JogoInputModel inputModel)
         {
             var jogo = guid == Guid.Empty
-                               ? new Jogo() { Id = Guid.NewGuid() }
-                               : await _repository.Obter(guid);
+                ? new Jogo() 
+                {
+                    Id = Guid.NewGuid(),
+                    UsuarioJogos = new List<UsuarioJogo>()
+                }
+                : await _repository.Obter(guid);
 
             jogo.Nome = inputModel.Nome;
             jogo.Ano = inputModel.Ano;
             jogo.ProdutoraId = inputModel.ProdutoraId;
+            jogo.Valor = inputModel.Valor;
 
             return jogo;
         }
@@ -34,7 +41,8 @@ namespace ApiCatalogoJogos.Infrastructure.Services
                 Id = jogo.Id,
                 Nome = jogo.Nome,
                 Ano = jogo.Ano,
-                ProdutoraId = jogo.ProdutoraId
+                ProdutoraId = jogo.ProdutoraId,
+                Valor = jogo.Valor
             });
         }
 

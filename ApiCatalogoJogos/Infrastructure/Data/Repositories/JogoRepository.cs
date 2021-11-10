@@ -1,4 +1,4 @@
-﻿using ApiCatalogoJogos.Business.Entities;
+﻿using ApiCatalogoJogos.Business.Entities.Named;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Data.Infrastructure;
 

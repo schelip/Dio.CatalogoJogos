@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities;
+using ApiCatalogoJogos.Business.Entities.Named;
 using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Business.Services;

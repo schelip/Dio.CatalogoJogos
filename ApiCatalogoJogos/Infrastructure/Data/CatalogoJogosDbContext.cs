@@ -1,5 +1,8 @@
 ﻿using ApiCatalogoJogos.Business.Entities;
+using ApiCatalogoJogos.Business.Entities.Composites;
+using ApiCatalogoJogos.Business.Entities.Named;
 using ApiCatalogoJogos.Infrastructure.Data.Mappings;
+using ApiCatalogoJogos.Infrastructure.Data.Mappings.Composites;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogoJogos.Data.Infrastructure
@@ -8,6 +11,8 @@ namespace ApiCatalogoJogos.Data.Infrastructure
     {
         public DbSet<Jogo> Jogos { get; set; }
         public DbSet<Produtora> Produtoras { get; set; }
+        public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<UsuarioJogo> UsuarioJogos { get; set; }
 
         public CatalogoJogosDbContext(DbContextOptions<CatalogoJogosDbContext> options)
             : base(options)
@@ -17,6 +22,8 @@ namespace ApiCatalogoJogos.Data.Infrastructure
         {
             modelBuilder.ApplyConfiguration(new JogoMapping());
             modelBuilder.ApplyConfiguration(new ProdutoraMapping());
+            modelBuilder.ApplyConfiguration(new UsuarioMapping());
+            modelBuilder.ApplyConfiguration(new UsuarioJogoMapping());
             base.OnModelCreating(modelBuilder);
         }
 

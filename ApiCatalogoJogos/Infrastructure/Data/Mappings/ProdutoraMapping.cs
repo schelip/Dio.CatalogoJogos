@@ -1,4 +1,4 @@
-﻿using ApiCatalogoJogos.Business.Entities;
+﻿using ApiCatalogoJogos.Business.Entities.Named;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

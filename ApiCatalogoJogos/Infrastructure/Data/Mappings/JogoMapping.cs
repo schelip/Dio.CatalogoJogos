@@ -1,4 +1,4 @@
-﻿using ApiCatalogoJogos.Business.Entities;
+﻿using ApiCatalogoJogos.Business.Entities.Named;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -13,6 +13,7 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Mappings
             builder.Property(p => p.Id);
             builder.Property(p => p.Nome);
             builder.Property(p => p.Ano);
+            builder.Property(p => p.Valor);
             builder.Property(p => p.ProdutoraId);
             builder.HasOne(p => p.Produtora)
                 .WithMany()

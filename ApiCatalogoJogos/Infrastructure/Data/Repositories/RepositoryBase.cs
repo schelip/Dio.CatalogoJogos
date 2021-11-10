@@ -46,6 +46,11 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
             return await _dbSet.FindAsync(id);
         }
 
+        public async Task<TExternal> Obter<TExternal>(Guid id) where TExternal: EntityBase
+        {
+            return await _context.GetDbSet<TExternal>().FindAsync(id);
+        }
+
         public async Task<T> Inserir(T entidade)
         {
             await _dbSet.AddAsync(entidade);
