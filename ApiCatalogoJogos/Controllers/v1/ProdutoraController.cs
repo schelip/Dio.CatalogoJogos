@@ -55,22 +55,15 @@ namespace ApiCatalogoJogos.Controllers.v1
         [HttpGet("{isoPais}")]
         public async Task<ActionResult<List<ProdutoraViewModel>>> Obter([FromRoute] string isoPais)
         {
-            try
-            {
-                if (!ValidaPais(isoPais))
-                    return BadRequest("ISO de país informado não é válido");
+            if (!ValidaPais(isoPais))
+                return BadRequest("ISO de país informado não é válido");
 
-                var produtoras = await _service.Obter(("ISOPais", isoPais));
+            var produtoras = await _service.Obter(isoPais);
 
-                if (produtoras.Count == 0)
-                    return NoContent();
+            if (produtoras.Count == 0)
+                return NoContent();
 
-                return Ok(produtoras);
-            }
-            catch (PaisInexistenteException ex)
-            {
-                return UnprocessableEntity(ex);
-            }
+            return Ok(produtoras);
         }
 
         /// <summary>
@@ -90,7 +83,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 
@@ -121,7 +114,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             catch (EntidadeJaCadastradaException ex)
             {
 
-                return UnprocessableEntity(ex.Message + "\nId da Produtora Confiltante: " + ex.Data["IdProdutoraConflitante"]);
+                return UnprocessableEntity(ex.Message);
             }
         }
 
@@ -170,7 +163,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 

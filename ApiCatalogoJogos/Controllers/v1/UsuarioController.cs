@@ -61,7 +61,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
 
@@ -88,7 +88,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeJaCadastradaException ex)
             {
-                return UnprocessableEntity(ex.Message + "\nId do Usuário Confiltante: " + ((dynamic)ex.Data["entidadeConflitante"]).Id);
+                return UnprocessableEntity(ex.Message);
             }
         }
 
@@ -117,6 +117,54 @@ namespace ApiCatalogoJogos.Controllers.v1
         }
 
         /// <summary>
+        /// Atualiza fundos de um usuário
+        /// </summary>
+        /// <param name="id">Id do usuário a ser atualizado</param>
+        /// <param name="quant">Nova quantia de fundos</param>
+        [SwaggerResponse(statusCode: 200, description: "Retorna o usuário atualizado", Type = typeof(UsuarioViewModel))]
+        [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
+        [SwaggerResponse(statusCode: 404, description: "Usuário não encontrado")]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno")]
+        [HttpPatch("{id:guid}/fundos/{quant:float}")]
+        public async Task<ActionResult> Atualizar([FromRoute] Guid id, [FromRoute] float quant)
+        {
+            try
+            {
+                var usuario = await _service.AtualizarFundos(id, quant);
+
+                return Ok(usuario);
+            }
+            catch (EntidadeNaoCadastradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adiciona jogo à lista de jogos do usuário
+        /// </summary>
+        /// <param name="id">Id do usuário</param>
+        /// <param name="idJogo">Id do jogo a ser adicionado</param>
+        [SwaggerResponse(statusCode: 200, description: "Retorna o usuário atualizado", Type = typeof(UsuarioViewModel))]
+        [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
+        [SwaggerResponse(statusCode: 404, description: "Usuário não encontrado")]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno")]
+        [HttpPatch("{id:guid}/jogos/{idJogo:guid}")]
+        public async Task<ActionResult> Atualizar([FromRoute] Guid id, [FromRoute] Guid idJogo)
+        {
+            try
+            {
+                var usuario = await _service.AdicionarJogo(id, idJogo);
+
+                return Ok(usuario);
+            }
+            catch (EntidadeNaoCadastradaException ex)
+            {
+                return NotFound(ex.Message);
+            }
+        }
+
+        /// <summary>
         /// Remove usuário
         /// </summary>
         /// <param name="id">Id do usuário a ser removido</param>
@@ -134,7 +182,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             }
             catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound(ex);
+                return NotFound(ex.Message);
             }
         }
     }

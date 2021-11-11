@@ -16,11 +16,11 @@ namespace ApiCatalogoJogos.Controllers.v1
     [ApiController]
     public class JogoController : ControllerBase
     {
-        private readonly IJogoService _jogoService;
+        private readonly IJogoService _service;
 
-        public JogoController(IJogoService jogoService)
+        public JogoController(IJogoService service)
         {
-            _jogoService = jogoService;
+            _service = service;
         }
 
         /// <summary>
@@ -36,7 +36,7 @@ namespace ApiCatalogoJogos.Controllers.v1
             [FromQuery, Range(1, int.MaxValue)] int pagina = 1,
             [FromQuery, Range(1, 50)] int quantidade = 5)
         {
-            var jogos = await _jogoService.Obter(pagina, quantidade);
+            var jogos = await _service.Obter(pagina, quantidade);
 
             if (jogos.Count() == 0)
                 return NoContent();
@@ -56,12 +56,12 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
-                var jogo = await _jogoService.Obter(id);
+                var jogo = await _service.Obter(id);
                 return Ok(jogo);
             }
-            catch (EntidadeNaoCadastradaException)
+            catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound($"Jogo de id {id} não encontrado");
+                return NotFound(ex.Message);
             }
         }
 
@@ -77,13 +77,13 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
-                var jogo = await _jogoService.Inserir(jogoInputModel);
+                var jogo = await _service.Inserir(jogoInputModel);
 
                 return Created("", jogo);
             }
-            catch (EntidadeJaCadastradaException)
+            catch (EntidadeJaCadastradaException ex)
             {
-                return UnprocessableEntity("Já existe um jogo com este nome para esta produtora");
+                return UnprocessableEntity(ex.Message);
             }
         }
 
@@ -100,13 +100,37 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
-                var jogoViewModel = await _jogoService.Atualizar(id, jogoInputModel);
+                var jogoViewModel = await _service.Atualizar(id, jogoInputModel);
 
                 return Ok(jogoViewModel);
             }
-            catch (EntidadeNaoCadastradaException)
+            catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound("Jogo não encontrado");
+                return NotFound(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Atualiza valor de um jogo
+        /// </summary>
+        /// <param name="id">Id do jogo a ser atualizado</param>
+        /// <param name="quant">Novo valor</param>
+        [SwaggerResponse(statusCode: 200, description: "Retorna o jogo atualizado", Type = typeof(JogoViewModel))]
+        [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
+        [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
+        [SwaggerResponse(statusCode: 500, description: "Erro interno")]
+        [HttpPatch("{id:guid}/valor/{quant:float}")]
+        public async Task<ActionResult> Atualizar([FromRoute] Guid id, [FromRoute] float quant)
+        {
+            try
+            {
+                var usuario = await _service.AtualizarValor(id, quant);
+
+                return Ok(usuario);
+            }
+            catch (EntidadeNaoCadastradaException ex)
+            {
+                return NotFound(ex.Message);
             }
         }
 
@@ -122,13 +146,13 @@ namespace ApiCatalogoJogos.Controllers.v1
         {
             try
             {
-                await _jogoService.Remover(id);
+                await _service.Remover(id);
 
                 return Ok($"Jogo de id {id} removido");
             }
-            catch (EntidadeNaoCadastradaException)
+            catch (EntidadeNaoCadastradaException ex)
             {
-                return NotFound("Jogo não encontrado");
+                return NotFound(ex.Message);
             }
         }
     }
