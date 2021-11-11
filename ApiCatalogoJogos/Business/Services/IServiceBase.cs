@@ -21,12 +21,6 @@ namespace ApiCatalogoJogos.Business.Services
         /// <returns>Lista das ViewModels obtidas</returns>
         Task<List<TViewModel>> Obter(int pagina, int quantidade);
         /// <summary>
-        /// Obtém ViewModels das entidades que respeitam uma lista de parâmetros
-        /// </summary>
-        /// <param name="list">Lista de parâmetros a serem validados</param>
-        /// <returns>Lista das ViewModels obtidas</returns>
-        Task<List<TViewModel>> Obter(params (string, object)[] list);
-        /// <summary>
         /// Obtém ViewModel de entidade do respositório pelo Id
         /// </summary>
         /// <param name="id">Id da entidade a ser obtida</param>

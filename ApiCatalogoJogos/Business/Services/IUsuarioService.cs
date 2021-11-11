@@ -8,17 +8,18 @@ namespace ApiCatalogoJogos.Business.Services
     public interface IUsuarioService : IServiceBase<UsuarioInputModel, UsuarioViewModel>
     {
         /// <summary>
-        /// Adiciona jogo á lista de jogos de um usuário
+        /// Adiciona jogo à lista de jogos de um usuário
         /// </summary>
         /// <param name="idUsuario">Id do usuário</param>
         /// <param name="idJogo">Id do jogo</param>
-        Task AdicionarJogo(Guid idUsuario, Guid idJogo);
+        /// <returns>ViewModel atualizada do usuário</returns>
+        Task<UsuarioViewModel> AdicionarJogo(Guid idUsuario, Guid idJogo);
         /// <summary>
         /// Atualiza os fundos de um usuário
         /// </summary>
         /// <param name="guid">Id do usuário</param>
         /// <param name="quant">Quantidade de fundos</param>
-        /// <returns></returns>
-        Task AtualizarFundos(Guid guid, float quant);
+        /// <returns>ViewModel atualizada do usuário</returns>
+        Task<UsuarioViewModel> AtualizarFundos(Guid guid, float quant);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Entities.Named;
 
 namespace ApiCatalogoJogos.Business.Repositories
@@ -11,5 +12,11 @@ namespace ApiCatalogoJogos.Business.Repositories
         /// <param name="usuario">Usuário que adquiriu o jogo</param>
         /// <param name="jogo">Jogo que foi adquirido</param>
         Task AdicionarJogo(Usuario usuario, Jogo jogo);
+        /// <summary>
+        /// Obtém lista de jogos de um usuário
+        /// </summary>
+        /// <param name="usuario">Usuário do qual recuperar lista de jogos</param>
+        /// <returns></returns>
+        Task<List<Jogo>> ObterJogos(Usuario usuario);
     }
 }
