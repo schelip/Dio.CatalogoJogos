@@ -11,7 +11,7 @@
         </member>
         <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.Ano">
             <summary>
-            Ano de lançamento do jogo (-1: não definido)
+            Ano de lançamento do jogo
             </summary>
         </member>
         <member name="P:ApiCatalogoJogos.Business.Entities.Named.Jogo.ProdutoraId">
@@ -89,6 +89,27 @@
             Utilizada quando a validação de um ISO de país falha
             </summary>
         </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IProdutoraRepository.Obter(System.String)">
+            <summary>
+            Obtém produtoras de um país
+            </summary>
+            <param name="ISOPais">ISO de duas letras do país</param>
+            <returns>Lista de produtoras obtidas</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IProdutoraRepository.ObterFilhas(ApiCatalogoJogos.Business.Entities.Named.Produtora)">
+            <summary>
+            Obtém produtoras filhas de uma produtora
+            </summary>
+            <param name="mae">Produtora da qual obter as filhas</param>
+            <returns>Lista de produtoras filhas</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IProdutoraRepository.ObterJogos(ApiCatalogoJogos.Business.Entities.Named.Produtora)">
+            <summary>
+            Obtém jogos produzidos por uma produtora
+            </summary>
+            <param name="produtora">Produtora da qual obter os jogos</param>
+            <returns>Lista de jogos</returns>
+        </member>
         <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter(System.Int32,System.Int32)">
             <summary>
             Obtém uma determinada quantidade de entidades do contexto a partir de um offset
@@ -96,21 +117,6 @@
             <param name="pagina">Offset (1 = nenhum offset)</param>
             <param name="quantidade">Quantidade de entidades por página</param>
             <returns>Lista das entidades obtidas</returns>
-        </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter(System.ValueTuple{System.String,System.Object}[])">
-            <summary>
-            Obtém entidades que respeitam uma lista de parametros
-            </summary>
-            <param name="ps">Lista dos parametros que devem ser validados (nome, valor)</param>
-            <returns>Entidades obtidas</returns>
-        </member>
-        <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter``1(System.ValueTuple{System.String,System.Object}[])">
-            <summary>
-            Obtém entidades de um tipo possivelmente diferente de <c>T</c> que respeitam uma lista de parametros
-            </summary>
-            <typeparam name="TExternal">Tipo das entidade a serem obtidas</typeparam>
-            <param name="ps">Lista dos parametros que devem ser validados (nome, valor)</param>
-            <returns>Entidades obtidas</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Repositories.IRepositoryBase`1.Obter(System.Guid)">
             <summary>
@@ -155,6 +161,28 @@
             <param name="usuario">Usuário que adquiriu o jogo</param>
             <param name="jogo">Jogo que foi adquirido</param>
         </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IUsuarioRepository.ObterJogos(ApiCatalogoJogos.Business.Entities.Named.Usuario)">
+            <summary>
+            Obtém lista de jogos de um usuário
+            </summary>
+            <param name="usuario">Usuário do qual recuperar lista de jogos</param>
+            <returns></returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IJogoService.AtualizarValor(System.Guid,System.Single)">
+            <summary>
+            Atualiza valor de um jogo
+            </summary>
+            <param name="id">Id do jogo a ser atualizado</param>
+            <param name="valor">Novo valor</param>
+            <returns>ViewModel atualizada do jogo</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IProdutoraService.Obter(System.String)">
+            <summary>
+            Obtém ViewModels de Produtoras de um país
+            </summary>
+            <param name="ISOPais">ISO de duas letras do país de origem</param>
+            <returns>Lista de ViewModels obtidas</returns>
+        </member>
         <member name="T:ApiCatalogoJogos.Business.Services.IServiceBase`2">
             <summary>
             Contrato para classe que gerencia operações no repositório utilizando Models
@@ -166,13 +194,6 @@
             </summary>
             <param name="pagina">Offset (1 = nenhum offset)</param>
             <param name="quantidade">Quantidade de ViewModels por página</param>
-            <returns>Lista das ViewModels obtidas</returns>
-        </member>
-        <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Obter(System.ValueTuple{System.String,System.Object}[])">
-            <summary>
-            Obtém ViewModels das entidades que respeitam uma lista de parâmetros
-            </summary>
-            <param name="list">Lista de parâmetros a serem validados</param>
             <returns>Lista das ViewModels obtidas</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Services.IServiceBase`2.Obter(System.Guid)">
@@ -210,10 +231,11 @@
         </member>
         <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.AdicionarJogo(System.Guid,System.Guid)">
             <summary>
-            Adiciona jogo á lista de jogos de um usuário
+            Adiciona jogo à lista de jogos de um usuário
             </summary>
             <param name="idUsuario">Id do usuário</param>
             <param name="idJogo">Id do jogo</param>
+            <returns>ViewModel atualizada do usuário</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.AtualizarFundos(System.Guid,System.Single)">
             <summary>
@@ -221,7 +243,7 @@
             </summary>
             <param name="guid">Id do usuário</param>
             <param name="quant">Quantidade de fundos</param>
-            <returns></returns>
+            <returns>ViewModel atualizada do usuário</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Obter(System.Int32,System.Int32)">
             <summary>
@@ -248,6 +270,13 @@
             </summary>
             <param name="id">Id do jogo a ser atualizado</param>
             <param name="jogoInputModel">Jogo com novas características cofiguradas</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Atualizar(System.Guid,System.Single)">
+            <summary>
+            Atualiza valor de um jogo
+            </summary>
+            <param name="id">Id do jogo a ser atualizado</param>
+            <param name="quant">Novo valor</param>
         </member>
         <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Remover(System.Guid)">
             <summary>
@@ -318,6 +347,20 @@
             </summary>
             <param name="id">Id do usuário a ser atualizado</param>
             <param name="usuarioInput">Usuário com as novas características configuradas</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Atualizar(System.Guid,System.Single)">
+            <summary>
+            Atualiza fundos de um usuário
+            </summary>
+            <param name="id">Id do usuário a ser atualizado</param>
+            <param name="quant">Nova quantia de fundos</param>
+        </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Atualizar(System.Guid,System.Guid)">
+            <summary>
+            Adiciona jogo à lista de jogos do usuário
+            </summary>
+            <param name="id">Id do usuário</param>
+            <param name="idJogo">Id do jogo a ser adicionado</param>
         </member>
         <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Remover(System.Guid)">
             <summary>
