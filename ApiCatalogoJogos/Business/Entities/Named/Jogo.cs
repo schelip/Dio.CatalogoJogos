@@ -7,7 +7,7 @@ namespace ApiCatalogoJogos.Business.Entities.Named
     public class Jogo : NamedEntityBase
     {
         /// <summary>
-        /// Ano de lançamento do jogo (-1: não definido)
+        /// Ano de lançamento do jogo
         /// </summary>
         public int Ano { get; set; }
         /// <summary>
@@ -25,6 +25,6 @@ namespace ApiCatalogoJogos.Business.Entities.Named
         /// <summary>
         /// Valor do jogo
         /// </summary>
-        public int Valor { get; set; }
+        public float Valor { get; set; }
     }
 }

@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Entities.Composites;
 using ApiCatalogoJogos.Business.Entities.Named;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Data.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
 {
@@ -33,11 +35,24 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
             else
                 jogo.UsuarioJogos.Add(comp);
 
-            await Atualizar(usuario);
+            _context.Usuarios.Update(usuario);
             _context.Jogos.Update(jogo);
             _context.UsuarioJogos.Add(comp);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<List<Jogo>> ObterJogos(Usuario usuario)
+        {
+            return await _context.UsuarioJogos
+                .Where(uj => uj.UsuarioId == usuario.Id)
+                .Select(uj => uj.Jogo)
+                .ToListAsync();
+        }
+
+        protected override bool VerificaConflito(Usuario usuario)
+        {
+            return _dbSet.Any(u => u.Email == usuario.Email);
         }
     }
 }

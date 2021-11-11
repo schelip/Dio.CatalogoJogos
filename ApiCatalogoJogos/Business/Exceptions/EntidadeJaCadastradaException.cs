@@ -9,6 +9,7 @@ namespace ApiCatalogoJogos.Business.Exceptions
     public class EntidadeJaCadastradaException : Exception
     {
         public EntidadeJaCadastradaException() : base("Entidade já consta como cadastrada") { }
+        public EntidadeJaCadastradaException(Guid id) : base($"Entidade com id {id} já consta como cadastrada") { }
         public EntidadeJaCadastradaException(string message) : base(message) { }
         public EntidadeJaCadastradaException(string message, Exception inner) : base(message, inner) { }
         protected EntidadeJaCadastradaException(

@@ -7,12 +7,12 @@ namespace ApiCatalogoJogos.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<int>(
+            migrationBuilder.AddColumn<float>(
                 name: "Valor",
                 table: "TB_JOGO",
-                type: "int",
+                type: "real",
                 nullable: false,
-                defaultValue: 0);
+                defaultValue: 0f);
 
             migrationBuilder.CreateTable(
                 name: "TB_USUARIO",

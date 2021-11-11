@@ -15,19 +15,6 @@ namespace ApiCatalogoJogos.Business.Repositories
         /// <returns>Lista das entidades obtidas</returns>
         Task<List<T>> Obter(int pagina, int quantidade);
         /// <summary>
-        /// Obtém entidades que respeitam uma lista de parametros
-        /// </summary>
-        /// <param name="ps">Lista dos parametros que devem ser validados (nome, valor)</param>
-        /// <returns>Entidades obtidas</returns>
-        Task<List<T>> Obter(params (string, object)[] ps);
-        /// <summary>
-        /// Obtém entidades de um tipo possivelmente diferente de <c>T</c> que respeitam uma lista de parametros
-        /// </summary>
-        /// <typeparam name="TExternal">Tipo das entidade a serem obtidas</typeparam>
-        /// <param name="ps">Lista dos parametros que devem ser validados (nome, valor)</param>
-        /// <returns>Entidades obtidas</returns>
-        Task<List<TExternal>> Obter<TExternal>(params (string, object)[] ps) where TExternal : EntityBase;
-        /// <summary>
         /// Obtém entidade do contexto pelo seu Id
         /// </summary>
         /// <param name="id">Id da entidade a ser obtida</param>
