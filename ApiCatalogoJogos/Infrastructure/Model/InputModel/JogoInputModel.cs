@@ -9,6 +9,6 @@ namespace ApiCatalogoJogos.Infrastructure.Model.InputModel
         public Guid ProdutoraId { get; set; }
         public int Ano { get; set; }
         [Required(ErrorMessage = "É necessário informar o valor do jogo")]
-        public int Valor { get; set; }
+        public float Valor { get; set; }
     }
 }

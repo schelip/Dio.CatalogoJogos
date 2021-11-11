@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Entities.Composites;
 using ApiCatalogoJogos.Business.Entities.Named;
+using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Business.Services;
 using ApiCatalogoJogos.Infrastructure.Model.InputModel;
@@ -14,6 +15,18 @@ namespace ApiCatalogoJogos.Infrastructure.Services
     {
         public JogoService(IJogoRepository repository) : base(repository)
         {
+        }
+
+        public async Task<JogoViewModel> AtualizarValor(Guid id, float valor)
+        {
+            var jogo = await _repository.Obter(id);
+
+            if (jogo == null)
+                throw new EntidadeNaoCadastradaException(id);
+
+            jogo.Valor = valor;
+            await _repository.Atualizar(jogo);
+            return await ObterViewModel(jogo);
         }
 
         protected override async Task<Jogo> ObterEntidade(Guid guid, JogoInputModel inputModel)
@@ -44,17 +57,6 @@ namespace ApiCatalogoJogos.Infrastructure.Services
                 ProdutoraId = jogo.ProdutoraId,
                 Valor = jogo.Valor
             });
-        }
-
-        protected override (string, object)[] ObterParametrosParaConflito(Jogo jogo)
-        {
-            var prms = new (string, object)[]
-            {
-                ("Nome", jogo.Nome),
-                ("ProdutoraId", jogo.ProdutoraId)
-            };
-
-            return prms;
         }
     }
 }

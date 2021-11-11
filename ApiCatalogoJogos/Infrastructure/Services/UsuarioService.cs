@@ -21,18 +21,19 @@ namespace ApiCatalogoJogos.Infrastructure.Services
             _repository = repository;
         }
 
-        public async Task AtualizarFundos(Guid guid, float quant)
+        public async Task<UsuarioViewModel> AtualizarFundos(Guid guid, float quant)
         {
             var usuario = await _repository.Obter(guid);
 
             if (usuario == null)
                 throw new EntidadeNaoCadastradaException(guid);
 
-            usuario.Fundos += quant;
+            usuario.Fundos = quant;
             await _repository.Atualizar(usuario);
+            return await ObterViewModel(usuario);
         }
 
-        public async Task AdicionarJogo(Guid idUsuario, Guid idJogo)
+        public async Task<UsuarioViewModel> AdicionarJogo(Guid idUsuario, Guid idJogo)
         {
             var usuario = await _repository.Obter(idUsuario);
             var jogo = await _repository.Obter<Jogo>(idJogo);
@@ -46,8 +47,9 @@ namespace ApiCatalogoJogos.Infrastructure.Services
             if (jogo.Valor > usuario.Fundos)
                 throw new FundosInsuficientesException();
 
-            await AtualizarFundos(idUsuario, -jogo.Valor);
             await _repository.AdicionarJogo(usuario, jogo);
+            await AtualizarFundos(idUsuario, usuario.Fundos - jogo.Valor);
+            return await ObterViewModel(usuario);
         }
 
         protected override async Task<Usuario> ObterEntidade(Guid guid, UsuarioInputModel inputModel)
@@ -58,7 +60,8 @@ namespace ApiCatalogoJogos.Infrastructure.Services
                     Id = Guid.NewGuid(),
                     UsuarioJogos = new List<UsuarioJogo>()
                 }
-                : await _repository.Obter(guid);
+                : await _repository.Obter(guid)
+                    ?? throw new EntidadeNaoCadastradaException(guid);
 
             usuario.Nome = inputModel.Nome;
             usuario.Email = inputModel.Email;
@@ -79,14 +82,9 @@ namespace ApiCatalogoJogos.Infrastructure.Services
                 Senha = usuario.Senha,
                 Fundos = usuario.Fundos,
                 Permissao = usuario.Permissao,
-                Jogos = (await _repository.Obter<UsuarioJogo>(("UsuarioId", usuario.Id)))
-                    .Select(uj => uj.JogoId).ToList()
+                Jogos = (await _repository.ObterJogos(usuario))
+                    .Select(j => j.Id).ToList()
             };
-        }
-
-        protected override (string, object)[] ObterParametrosParaConflito(Usuario usuario)
-        {
-            return new (string, object)[] { ("Email", usuario.Email) };
         }
     }
 }

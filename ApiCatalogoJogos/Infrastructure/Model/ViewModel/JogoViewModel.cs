@@ -6,6 +6,6 @@ namespace ApiCatalogoJogos.Infrastructure.Model.ViewModel
     {
         public Guid ProdutoraId { get; set; }
         public int Ano { get; set; }
-        public int Valor { get; set; }
+        public float Valor { get; set; }
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCatalogoJogos.Migrations
 {
     [DbContext(typeof(CatalogoJogosDbContext))]
-    [Migration("20211110204701_Add-Usuarios")]
+    [Migration("20211111003807_Add-Usuarios")]
     partial class AddUsuarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -57,8 +57,8 @@ namespace ApiCatalogoJogos.Migrations
                     b.Property<Guid>("ProdutoraId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Valor")
-                        .HasColumnType("int");
+                    b.Property<float>("Valor")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

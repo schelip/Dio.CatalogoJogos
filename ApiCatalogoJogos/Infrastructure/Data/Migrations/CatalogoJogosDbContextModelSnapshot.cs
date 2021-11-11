@@ -55,8 +55,8 @@ namespace ApiCatalogoJogos.Migrations
                     b.Property<Guid>("ProdutoraId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Valor")
-                        .HasColumnType("int");
+                    b.Property<float>("Valor")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
