@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Business.Services;
+using ApiCatalogoJogos.Enum;
+using ApiCatalogoJogos.Infrastructure.Authorization;
 using ApiCatalogoJogos.Infrastructure.Model.InputModel;
 using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 using Microsoft.AspNetCore.Mvc;
@@ -12,6 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace ApiCatalogoJogos.Controllers.v1
 {
+    [Authorize(PermissaoUsuario.Moderador, PermissaoUsuario.Administrador)]
     [Route("api/v1/jogos")]
     [ApiController]
     public class JogoController : ControllerBase
@@ -31,6 +34,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         [SwaggerResponse(statusCode: 200, description: "Retorna jogos recuperados", Type = typeof(List<JogoViewModel>))]
         [SwaggerResponse(statusCode: 204, description: "Nenhum jogo na página")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<JogoViewModel>>> Obter(
             [FromQuery, Range(1, int.MaxValue)] int pagina = 1,
@@ -51,6 +55,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo com id informado", Type = typeof(JogoViewModel))]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
+        [AllowAnonymous]
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<JogoViewModel>> Obter([FromRoute] Guid id)
         {
@@ -70,6 +75,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         /// </summary>
         /// <param name="jogoInputModel">Jogo a ser inserido</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo adicionado", Type = typeof(JogoViewModel))]
+        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 422, description: "Erro durante a inserção")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPost]
@@ -93,6 +99,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         /// <param name="id">Id do jogo a ser atualizado</param>
         /// <param name="jogoInputModel">Jogo com novas características cofiguradas</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo atualizado", Type = typeof(JogoViewModel))]
+        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPut("{id:guid}")]
@@ -116,6 +123,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         /// <param name="id">Id do jogo a ser atualizado</param>
         /// <param name="quant">Novo valor</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo atualizado", Type = typeof(JogoViewModel))]
+        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
@@ -139,6 +147,7 @@ namespace ApiCatalogoJogos.Controllers.v1
         /// </summary>
         /// <param name="id">Id do jogo a ser removido</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o id do jogo removido")]
+        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpDelete("{id:guid}")]

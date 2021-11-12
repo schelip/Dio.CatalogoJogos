@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 using ApiCatalogoJogos.Business.Entities.Composites;
 using ApiCatalogoJogos.Enum;
 
@@ -14,7 +14,8 @@ namespace ApiCatalogoJogos.Business.Entities.Named
         /// <summary>
         /// Senha utilizada para login
         /// </summary>
-        public string Senha { get; set; }
+        [JsonIgnore]
+        public string SenhaHash { get; set; }
         /// <summary>
         /// Quantidade de fundos na carteira
         /// </summary>

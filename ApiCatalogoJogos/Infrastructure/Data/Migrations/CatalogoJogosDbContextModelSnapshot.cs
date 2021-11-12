@@ -105,7 +105,7 @@ namespace ApiCatalogoJogos.Migrations
                     b.Property<int>("Permissao")
                         .HasColumnType("int");
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("SenhaHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

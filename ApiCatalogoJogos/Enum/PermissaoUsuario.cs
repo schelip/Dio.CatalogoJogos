@@ -6,15 +6,15 @@
     public enum PermissaoUsuario
     {
         /// <summary>
-        /// Permissao para visualizar classes (outros usuarios exclusos)
+        /// Permissao para visualizar produtoras e jogos e atualizar suas próprias informações
         /// </summary>
         Usuario = 0,
         /// <summary>
-        /// Permissao para atualizar e remover usuarios
+        /// Permissao para adicionar atualizar e remover produtoras e jogos
         /// </summary>
-        Moderardor = 1,
+        Moderador = 1,
         /// <summary>
-        /// Permissao para visualizar, adicionar, atualizar e remover todas as entidades
+        /// Permissao máxima
         /// </summary>
         Administrador = 2
     }

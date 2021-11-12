@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Infrastructure.Model.InputModel;
 using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
 
@@ -13,6 +14,7 @@ namespace ApiCatalogoJogos.Business.Services
         /// <param name="id">Id do jogo a ser atualizado</param>
         /// <param name="valor">Novo valor</param>
         /// <returns>ViewModel atualizada do jogo</returns>
+        /// <exception cref="EntidadeNaoCadastradaException"/>
         Task<JogoViewModel> AtualizarValor(Guid id, float valor);
     }
 }
