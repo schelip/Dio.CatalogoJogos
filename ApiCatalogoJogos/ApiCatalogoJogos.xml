@@ -54,7 +54,7 @@
             Email utilizado para login
             </summary>
         </member>
-        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.Senha">
+        <member name="P:ApiCatalogoJogos.Business.Entities.Named.Usuario.SenhaHash">
             <summary>
             Senha utilizada para login
             </summary>
@@ -161,12 +161,19 @@
             <param name="usuario">Usuário que adquiriu o jogo</param>
             <param name="jogo">Jogo que foi adquirido</param>
         </member>
+        <member name="M:ApiCatalogoJogos.Business.Repositories.IUsuarioRepository.Obter(System.String)">
+            <summary>
+            Obtém usuário a partir de seu email
+            </summary>
+            <param name="email">Email do usuário a ser obtido</param>
+            <returns>Usuário obtido</returns>
+        </member>
         <member name="M:ApiCatalogoJogos.Business.Repositories.IUsuarioRepository.ObterJogos(ApiCatalogoJogos.Business.Entities.Named.Usuario)">
             <summary>
             Obtém lista de jogos de um usuário
             </summary>
             <param name="usuario">Usuário do qual recuperar lista de jogos</param>
-            <returns></returns>
+            <returns>Lista de jogos obtidos</returns>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Services.IJogoService.AtualizarValor(System.Guid,System.Single)">
             <summary>
@@ -175,6 +182,7 @@
             <param name="id">Id do jogo a ser atualizado</param>
             <param name="valor">Novo valor</param>
             <returns>ViewModel atualizada do jogo</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException"/>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Services.IProdutoraService.Obter(System.String)">
             <summary>
@@ -236,6 +244,8 @@
             <param name="idUsuario">Id do usuário</param>
             <param name="idJogo">Id do jogo</param>
             <returns>ViewModel atualizada do usuário</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException"/>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.FundosInsuficientesException"/>
         </member>
         <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.AtualizarFundos(System.Guid,System.Single)">
             <summary>
@@ -244,6 +254,22 @@
             <param name="guid">Id do usuário</param>
             <param name="quant">Quantidade de fundos</param>
             <returns>ViewModel atualizada do usuário</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException"/>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.Autenticar(ApiCatalogoJogos.Infrastructure.Model.InputModel.LoginInputModel)">
+            <summary>
+            Autentica usuario e retorna token jwt
+            </summary>
+            <param name="inputModel">LoginInputModel com os dados a serem validados</param>
+            <returns>ViewModel da autenticacao</returns>
+        </member>
+        <member name="M:ApiCatalogoJogos.Business.Services.IUsuarioService.Obter(System.String)">
+            <summary>
+            Obtém ViewModel de usuário a partir de seu email
+            </summary>
+            <param name="email">Email do usuário a ser obtido</param>
+            <returns>ViewModel do usuário encontrado obtida</returns>
+            <exception cref="T:ApiCatalogoJogos.Business.Exceptions.EntidadeNaoCadastradaException"/>
         </member>
         <member name="M:ApiCatalogoJogos.Controllers.v1.JogoController.Obter(System.Int32,System.Int32)">
             <summary>
@@ -368,6 +394,12 @@
             </summary>
             <param name="id">Id do usuário a ser removido</param>
         </member>
+        <member name="M:ApiCatalogoJogos.Controllers.v1.UsuarioController.Autenticar(ApiCatalogoJogos.Infrastructure.Model.InputModel.LoginInputModel)">
+            <summary>
+            Autentica usuário cadastrado
+            </summary>
+            <param name="inputModel">InputModel contendo dados para login</param>
+        </member>
         <member name="T:ApiCatalogoJogos.Enum.PermissaoUsuario">
             <summary>
             Enum dos níveis de permissão dos usuários.
@@ -375,17 +407,17 @@
         </member>
         <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Usuario">
             <summary>
-            Permissao para visualizar classes (outros usuarios exclusos)
+            Permissao para visualizar produtoras e jogos e atualizar suas próprias informações
             </summary>
         </member>
-        <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Moderardor">
+        <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Moderador">
             <summary>
-            Permissao para atualizar e remover usuarios
+            Permissao para adicionar atualizar e remover produtoras e jogos
             </summary>
         </member>
         <member name="F:ApiCatalogoJogos.Enum.PermissaoUsuario.Administrador">
             <summary>
-            Permissao para visualizar, adicionar, atualizar e remover todas as entidades
+            Permissao máxima
             </summary>
         </member>
     </members>

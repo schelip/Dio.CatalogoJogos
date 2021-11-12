@@ -2,8 +2,11 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using ApiCatalogoJogos.Data.Infrastructure;
 using ApiCatalogoJogos.Extensions;
+using ApiCatalogoJogos.Infrastructure.Authorization;
+using ApiCatalogoJogos.Infrastructure.MIddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -31,12 +34,17 @@ namespace ApiCatalogoJogos
             AddInjections("ApiCatalogoJogos.Business.Services",
                 "ApiCatalogoJogos.Infrastructure.Services", services);
 
+            services.AddScoped<IJwtUtils, JwtUtils>();
+
             services.AddDbContext<CatalogoJogosDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"));
             });
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+            {
+                x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -44,6 +52,29 @@ namespace ApiCatalogoJogos
                 {
                     Title = "Dio.CatalogoJogos",
                     Version = "v1"
+                });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+                {
+                    Description = "Header de autorização JWT (Exemplo: 'Bearer 123456abcdef')",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        Array.Empty<string>()
+                    }
                 });
 
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
@@ -75,7 +106,9 @@ namespace ApiCatalogoJogos
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAuthentication();
+
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseEndpoints(endpoints =>
             {
