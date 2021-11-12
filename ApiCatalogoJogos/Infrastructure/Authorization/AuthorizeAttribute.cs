@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using ApiCatalogoJogos.Enum;
-using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
+using Dio.CatalogoJogos.Api.Enum;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace ApiCatalogoJogos.Infrastructure.Authorization
+namespace Dio.CatalogoJogos.Api.Infrastructure.Authorization
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter

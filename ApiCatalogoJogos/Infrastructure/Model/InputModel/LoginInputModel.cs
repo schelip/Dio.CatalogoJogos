@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ApiCatalogoJogos.Infrastructure.Model.InputModel
+namespace Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel
 {
     public class LoginInputModel
     {

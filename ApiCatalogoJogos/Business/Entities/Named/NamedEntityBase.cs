@@ -1,4 +1,4 @@
-﻿namespace ApiCatalogoJogos.Business.Entities.Named
+﻿namespace Dio.CatalogoJogos.Api.Business.Entities.Named
 {
     public class NamedEntityBase : EntityBase
     {

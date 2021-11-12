@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities;
+using Dio.CatalogoJogos.Api.Business.Entities;
 
-namespace ApiCatalogoJogos.Business.Repositories
+namespace Dio.CatalogoJogos.Api.Business.Repositories
 {
     public interface IRepositoryBase<T> : IDisposable where T : EntityBase
     {

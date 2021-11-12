@@ -1,9 +1,9 @@
 ﻿using System.Linq;
-using ApiCatalogoJogos.Business.Entities.Named;
-using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Data.Infrastructure;
+using Dio.CatalogoJogos.Api.Business.Entities.Named;
+using Dio.CatalogoJogos.Api.Business.Repositories;
+using Dio.CatalogoJogos.Api.Data.Infrastructure;
 
-namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
+namespace Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories
 {
     public class JogoRepository : RepositoryBase<Jogo>, IJogoRepository
     {

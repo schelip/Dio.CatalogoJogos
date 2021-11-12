@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Business.Exceptions
+namespace Dio.CatalogoJogos.Api.Business.Exceptions
 {
     [Serializable]
     public class FundosInsuficientesException : Exception

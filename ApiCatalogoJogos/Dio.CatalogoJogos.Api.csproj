@@ -2,10 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <AssemblyName>Dio.CatalogoJogos.Api</AssemblyName>
+    <RootNamespace>Dio.CatalogoJogos.Api</RootNamespace>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>ApiCatalogoJogos.xml</DocumentationFile>
+    <DocumentationFile>Dio.CatalogoJogos.Api.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

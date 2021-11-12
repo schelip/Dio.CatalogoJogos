@@ -1,7 +1,7 @@
 ﻿using System;
-using ApiCatalogoJogos.Business.Entities;
+using Dio.CatalogoJogos.Api.Business.Entities;
 
-namespace ApiCatalogoJogos.Infrastructure.Model
+namespace Dio.CatalogoJogos.Api.Infrastructure.Model
 {
     public abstract class ViewModelBase
     {

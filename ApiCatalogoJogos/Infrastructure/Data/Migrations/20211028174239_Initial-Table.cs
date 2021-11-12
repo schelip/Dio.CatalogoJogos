@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace ApiCatalogoJogos.Migrations
+namespace Dio.CatalogoJogos.Api.Migrations
 {
     public partial class InitialTable : Migration
     {

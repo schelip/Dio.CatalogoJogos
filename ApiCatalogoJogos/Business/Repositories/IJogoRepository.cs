@@ -1,7 +1,7 @@
 ﻿using System;
-using ApiCatalogoJogos.Business.Entities.Named;
+using Dio.CatalogoJogos.Api.Business.Entities.Named;
 
-namespace ApiCatalogoJogos.Business.Repositories
+namespace Dio.CatalogoJogos.Api.Business.Repositories
 {
     public interface IJogoRepository : IRepositoryBase<Jogo>
     {

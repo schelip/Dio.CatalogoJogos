@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Exceptions;
-using ApiCatalogoJogos.Infrastructure.Model.InputModel;
-using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
+using Dio.CatalogoJogos.Api.Business.Exceptions;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel;
 
-namespace ApiCatalogoJogos.Business.Services
+namespace Dio.CatalogoJogos.Api.Business.Services
 {
     public interface IJogoService : IServiceBase<JogoInputModel, JogoViewModel>
     {

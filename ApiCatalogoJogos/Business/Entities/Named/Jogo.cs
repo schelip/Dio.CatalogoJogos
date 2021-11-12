@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ApiCatalogoJogos.Business.Entities.Composites;
+using Dio.CatalogoJogos.Api.Business.Entities.Composites;
 
-namespace ApiCatalogoJogos.Business.Entities.Named
+namespace Dio.CatalogoJogos.Api.Business.Entities.Named
 {
     public class Jogo : NamedEntityBase
     {

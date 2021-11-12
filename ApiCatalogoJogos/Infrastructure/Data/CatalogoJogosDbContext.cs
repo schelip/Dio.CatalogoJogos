@@ -1,11 +1,11 @@
-﻿using ApiCatalogoJogos.Business.Entities;
-using ApiCatalogoJogos.Business.Entities.Composites;
-using ApiCatalogoJogos.Business.Entities.Named;
-using ApiCatalogoJogos.Infrastructure.Data.Mappings;
-using ApiCatalogoJogos.Infrastructure.Data.Mappings.Composites;
+﻿using Dio.CatalogoJogos.Api.Business.Entities;
+using Dio.CatalogoJogos.Api.Business.Entities.Composites;
+using Dio.CatalogoJogos.Api.Business.Entities.Named;
+using Dio.CatalogoJogos.Api.Infrastructure.Data.Mappings;
+using Dio.CatalogoJogos.Api.Infrastructure.Data.Mappings.Composites;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiCatalogoJogos.Data.Infrastructure
+namespace Dio.CatalogoJogos.Api.Data.Infrastructure
 {
     public class CatalogoJogosDbContext : DbContext
     {

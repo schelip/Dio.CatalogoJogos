@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Business.Exceptions
+namespace Dio.CatalogoJogos.Api.Business.Exceptions
 {
     /// <summary>
     /// Utilizada quando a validação de um ISO de país falha

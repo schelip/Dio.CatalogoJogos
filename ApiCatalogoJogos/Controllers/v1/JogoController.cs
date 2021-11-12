@@ -3,16 +3,16 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Exceptions;
-using ApiCatalogoJogos.Business.Services;
-using ApiCatalogoJogos.Enum;
-using ApiCatalogoJogos.Infrastructure.Authorization;
-using ApiCatalogoJogos.Infrastructure.Model.InputModel;
-using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
+using Dio.CatalogoJogos.Api.Business.Exceptions;
+using Dio.CatalogoJogos.Api.Business.Services;
+using Dio.CatalogoJogos.Api.Enum;
+using Dio.CatalogoJogos.Api.Infrastructure.Authorization;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace ApiCatalogoJogos.Controllers.v1
+namespace Dio.CatalogoJogos.Api.Controllers.v1
 {
     [Authorize(PermissaoUsuario.Moderador, PermissaoUsuario.Administrador)]
     [Route("api/v1/jogos")]

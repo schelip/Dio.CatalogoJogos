@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ApiCatalogoJogos.Enum;
+using Dio.CatalogoJogos.Api.Enum;
 
-namespace ApiCatalogoJogos.Infrastructure.Model.InputModel
+namespace Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel
 {
     public class UsuarioInputModel : InputModelBase
     {

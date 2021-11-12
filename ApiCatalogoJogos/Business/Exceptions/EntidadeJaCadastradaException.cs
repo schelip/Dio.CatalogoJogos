@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Business.Exceptions
+namespace Dio.CatalogoJogos.Api.Business.Exceptions
 {
     /// <summary>
     /// Utilizada quando existe conflito entre nova entidade e entidade já cadastrada

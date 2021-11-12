@@ -1,8 +1,8 @@
-﻿using ApiCatalogoJogos.Business.Entities.Named;
+﻿using Dio.CatalogoJogos.Api.Business.Entities.Named;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ApiCatalogoJogos.Infrastructure.Data.Mappings
+namespace Dio.CatalogoJogos.Api.Infrastructure.Data.Mappings
 {
     public class ProdutoraMapping : IEntityTypeConfiguration<Produtora>
     {

@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using ApiCatalogoJogos.Business.Entities.Composites;
-using ApiCatalogoJogos.Enum;
+using Dio.CatalogoJogos.Api.Business.Entities.Composites;
+using Dio.CatalogoJogos.Api.Enum;
 
-namespace ApiCatalogoJogos.Business.Entities.Named
+namespace Dio.CatalogoJogos.Api.Business.Entities.Named
 {
     public class Usuario : NamedEntityBase
     {
