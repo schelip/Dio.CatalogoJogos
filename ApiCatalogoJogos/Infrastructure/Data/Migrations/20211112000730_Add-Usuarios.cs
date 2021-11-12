@@ -20,7 +20,7 @@ namespace ApiCatalogoJogos.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Senha = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    SenhaHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fundos = table.Column<float>(type: "real", nullable: false),
                     Permissao = table.Column<int>(type: "int", nullable: false),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true)

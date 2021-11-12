@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ApiCatalogoJogos.Migrations
 {
     [DbContext(typeof(CatalogoJogosDbContext))]
-    [Migration("20211111003807_Add-Usuarios")]
+    [Migration("20211112000730_Add-Usuarios")]
     partial class AddUsuarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -107,7 +107,7 @@ namespace ApiCatalogoJogos.Migrations
                     b.Property<int>("Permissao")
                         .HasColumnType("int");
 
-                    b.Property<string>("Senha")
+                    b.Property<string>("SenhaHash")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

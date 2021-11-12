@@ -14,7 +14,7 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Mappings
             builder.Property(p => p.Id);
             builder.Property(p => p.Nome);
             builder.Property(p => p.Email);
-            builder.Property(p => p.Senha);
+            builder.Property(p => p.SenhaHash);
             builder.Property(p => p.Fundos);
             builder.Property(p => p.Permissao);
         }

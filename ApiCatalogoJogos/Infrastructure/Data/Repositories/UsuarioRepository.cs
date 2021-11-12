@@ -16,6 +16,11 @@ namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
             : base(context)
         { }
 
+        public async Task<Usuario> Obter(string email)
+        {
+            return await Task.FromResult(_dbSet.FirstOrDefault(u => u.Email == email));
+        }
+
         public async Task AdicionarJogo(Usuario usuario, Jogo jogo)
         {
             var comp = new UsuarioJogo()
