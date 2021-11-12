@@ -7,18 +7,44 @@ using ApiCatalogoJogos.Business.Entities.Named;
 using ApiCatalogoJogos.Business.Exceptions;
 using ApiCatalogoJogos.Business.Repositories;
 using ApiCatalogoJogos.Business.Services;
+using ApiCatalogoJogos.Infrastructure.Authorization;
 using ApiCatalogoJogos.Infrastructure.Model.InputModel;
 using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
+using Microsoft.AspNetCore.Http;
 
 namespace ApiCatalogoJogos.Infrastructure.Services
 {
     public class UsuarioService : ServiceBase<UsuarioInputModel, UsuarioViewModel, Usuario>, IUsuarioService
     {
         protected readonly new IUsuarioRepository _repository;
+        protected readonly IJwtUtils _jwtUtils;
 
-        public UsuarioService(IUsuarioRepository repository) : base(repository)
+        public UsuarioService(IUsuarioRepository repository, IJwtUtils jwtUtils) : base(repository)
         {
             _repository = repository;
+            _jwtUtils = jwtUtils;
+        }
+
+        public async Task<(string, UsuarioViewModel)> Autenticar(LoginInputModel inputModel)
+        {
+            var usuario = await _repository.Obter(inputModel.Email);
+
+            if (usuario == null || !BCrypt.Net.BCrypt.Verify(inputModel.Senha, usuario.SenhaHash))
+                throw new AutenticacaoException("Email ou Senha inválidos");
+
+            var token = _jwtUtils.GerarJwtToken(usuario);
+
+            return (token, await ObterViewModel(usuario));
+        }
+
+        public async Task<UsuarioViewModel> Obter(string email)
+        {
+            var usuario = await _repository.Obter(email);
+
+            if (usuario == null)
+                throw new EntidadeNaoCadastradaException("Usuário de email "+ email + "não encontrado");
+
+            return await ObterViewModel(usuario);
         }
 
         public async Task<UsuarioViewModel> AtualizarFundos(Guid guid, float quant)
@@ -65,7 +91,7 @@ namespace ApiCatalogoJogos.Infrastructure.Services
 
             usuario.Nome = inputModel.Nome;
             usuario.Email = inputModel.Email;
-            usuario.Senha = inputModel.Senha;
+            usuario.SenhaHash = BCrypt.Net.BCrypt.HashPassword(inputModel.Senha);
             usuario.Fundos = inputModel.Fundos;
             usuario.Permissao = inputModel.Permissao;
 
@@ -79,7 +105,7 @@ namespace ApiCatalogoJogos.Infrastructure.Services
                 Id = usuario.Id,
                 Nome = usuario.Nome,
                 Email = usuario.Email,
-                Senha = usuario.Senha,
+                Senha = usuario.SenhaHash,
                 Fundos = usuario.Fundos,
                 Permissao = usuario.Permissao,
                 Jogos = (await _repository.ObterJogos(usuario))

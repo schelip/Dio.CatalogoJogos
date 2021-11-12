@@ -1,14 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using ApiCatalogoJogos.Enum;
 
 namespace ApiCatalogoJogos.Infrastructure.Model.InputModel
 {
-    public class UsuarioInputModel : InputModelBase
+    public class LoginInputModel
     {
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [Required]
         public string Senha { get; set; }
-        public float Fundos { get; set; }
-        public PermissaoUsuario Permissao { get; set; }
     }
 }
