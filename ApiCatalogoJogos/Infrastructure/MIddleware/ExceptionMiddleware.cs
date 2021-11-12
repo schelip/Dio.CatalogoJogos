@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
 
-namespace ApiCatalogoJogos.Infrastructure.MIddleware
+namespace Dio.CatalogoJogos.Api.Infrastructure.MIddleware
 {
     public class ExceptionMiddleware
     {

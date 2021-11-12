@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ApiCatalogoJogos.Business.Entities
+namespace Dio.CatalogoJogos.Api.Business.Entities
 {
     public abstract class EntityBase
     {

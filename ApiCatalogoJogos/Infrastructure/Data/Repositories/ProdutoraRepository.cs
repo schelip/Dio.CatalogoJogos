@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities.Named;
-using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Data.Infrastructure;
+using Dio.CatalogoJogos.Api.Business.Entities.Named;
+using Dio.CatalogoJogos.Api.Business.Repositories;
+using Dio.CatalogoJogos.Api.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
+namespace Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories
 {
     public class ProdutoraRepository : RepositoryBase<Produtora>, IProdutoraRepository
     {

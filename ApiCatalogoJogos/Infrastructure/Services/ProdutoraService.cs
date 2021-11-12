@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities.Named;
-using ApiCatalogoJogos.Business.Exceptions;
-using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Business.Services;
-using ApiCatalogoJogos.Infrastructure.Model.InputModel;
-using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
+using Dio.CatalogoJogos.Api.Business.Entities.Named;
+using Dio.CatalogoJogos.Api.Business.Exceptions;
+using Dio.CatalogoJogos.Api.Business.Repositories;
+using Dio.CatalogoJogos.Api.Business.Services;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel;
 
-namespace ApiCatalogoJogos.Infrastructure.Services
+namespace Dio.CatalogoJogos.Api.Infrastructure.Services
 {
     public class ProdutoraService : ServiceBase<ProdutoraInputModel, ProdutoraViewModel, Produtora>, IProdutoraService
     {

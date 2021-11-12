@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Infrastructure.Model.InputModel;
-using ApiCatalogoJogos.Infrastructure.Model.ViewModel;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel;
+using Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel;
 
-namespace ApiCatalogoJogos.Business.Services
+namespace Dio.CatalogoJogos.Api.Business.Services
 {
     public interface IProdutoraService : IServiceBase<ProdutoraInputModel, ProdutoraViewModel>
     {

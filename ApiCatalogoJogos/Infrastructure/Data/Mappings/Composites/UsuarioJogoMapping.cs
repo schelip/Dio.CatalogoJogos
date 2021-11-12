@@ -1,8 +1,8 @@
-﻿using ApiCatalogoJogos.Business.Entities.Composites;
+﻿using Dio.CatalogoJogos.Api.Business.Entities.Composites;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace ApiCatalogoJogos.Infrastructure.Data.Mappings.Composites
+namespace Dio.CatalogoJogos.Api.Infrastructure.Data.Mappings.Composites
 {
     public class UsuarioJogoMapping : IEntityTypeConfiguration<UsuarioJogo>
     {

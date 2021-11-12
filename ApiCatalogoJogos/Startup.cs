@@ -3,10 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.Json.Serialization;
-using ApiCatalogoJogos.Data.Infrastructure;
-using ApiCatalogoJogos.Extensions;
-using ApiCatalogoJogos.Infrastructure.Authorization;
-using ApiCatalogoJogos.Infrastructure.MIddleware;
+using Dio.CatalogoJogos.Api.Data.Infrastructure;
+using Dio.CatalogoJogos.Api.Extensions;
+using Dio.CatalogoJogos.Api.Infrastructure.Authorization;
+using Dio.CatalogoJogos.Api.Infrastructure.MIddleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace ApiCatalogoJogos
+namespace Dio.CatalogoJogos.Api
 {
     public class Startup
     {
@@ -29,10 +29,10 @@ namespace ApiCatalogoJogos
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AddInjections("ApiCatalogoJogos.Business.Repositories",
-                "ApiCatalogoJogos.Infrastructure.Data.Repositories", services);
-            AddInjections("ApiCatalogoJogos.Business.Services",
-                "ApiCatalogoJogos.Infrastructure.Services", services);
+            AddInjections("Dio.CatalogoJogos.Api.Business.Repositories",
+                "Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories", services);
+            AddInjections("Dio.CatalogoJogos.Api.Business.Services",
+                "Dio.CatalogoJogos.Api.Infrastructure.Services", services);
 
             services.AddScoped<IJwtUtils, JwtUtils>();
 

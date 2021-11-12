@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities;
-using ApiCatalogoJogos.Business.Exceptions;
-using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Data.Infrastructure;
+using Dio.CatalogoJogos.Api.Business.Entities;
+using Dio.CatalogoJogos.Api.Business.Exceptions;
+using Dio.CatalogoJogos.Api.Business.Repositories;
+using Dio.CatalogoJogos.Api.Data.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
-namespace ApiCatalogoJogos.Infrastructure.Data.Repositories
+namespace Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories
 {
     public abstract class RepositoryBase<T> : IRepositoryBase<T> where T: EntityBase
     {

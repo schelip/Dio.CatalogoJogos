@@ -3,11 +3,11 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
-using ApiCatalogoJogos.Business.Entities.Named;
+using Dio.CatalogoJogos.Api.Business.Entities.Named;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace ApiCatalogoJogos.Infrastructure.Authorization
+namespace Dio.CatalogoJogos.Api.Infrastructure.Authorization
 {
     public interface IJwtUtils
     {

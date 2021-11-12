@@ -1,4 +1,4 @@
-﻿namespace ApiCatalogoJogos.Enum
+﻿namespace Dio.CatalogoJogos.Api.Enum
 {
     /// <summary>
     /// Enum dos níveis de permissão dos usuários.

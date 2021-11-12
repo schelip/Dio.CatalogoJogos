@@ -1,10 +1,10 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Services;
-using ApiCatalogoJogos.Infrastructure.Authorization;
+using Dio.CatalogoJogos.Api.Business.Services;
+using Dio.CatalogoJogos.Api.Infrastructure.Authorization;
 using Microsoft.AspNetCore.Http;
 
-namespace ApiCatalogoJogos.Infrastructure.MIddleware
+namespace Dio.CatalogoJogos.Api.Infrastructure.MIddleware
 {
     public class JwtMiddleware
     {

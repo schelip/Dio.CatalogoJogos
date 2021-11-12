@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Entities;
-using ApiCatalogoJogos.Business.Exceptions;
-using ApiCatalogoJogos.Business.Repositories;
-using ApiCatalogoJogos.Business.Services;
-using ApiCatalogoJogos.Infrastructure.Model;
+using Dio.CatalogoJogos.Api.Business.Entities;
+using Dio.CatalogoJogos.Api.Business.Exceptions;
+using Dio.CatalogoJogos.Api.Business.Repositories;
+using Dio.CatalogoJogos.Api.Business.Services;
+using Dio.CatalogoJogos.Api.Infrastructure.Model;
 
-namespace ApiCatalogoJogos.Infrastructure.Services
+namespace Dio.CatalogoJogos.Api.Infrastructure.Services
 {
     public abstract class ServiceBase<TInputModel, TViewModel, TEntity> : IServiceBase<TInputModel, TViewModel>
         where TInputModel: InputModelBase

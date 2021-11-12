@@ -17,7 +17,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "ApiCatalogoJogos": {
+    "Dio.CatalogoJogos.Api": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "",

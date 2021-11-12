@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using ApiCatalogoJogos.Business.Exceptions;
-using ApiCatalogoJogos.Infrastructure.Model;
+using Dio.CatalogoJogos.Api.Business.Exceptions;
+using Dio.CatalogoJogos.Api.Infrastructure.Model;
 
-namespace ApiCatalogoJogos.Business.Services
+namespace Dio.CatalogoJogos.Api.Business.Services
 {
     /// <summary>
     /// Contrato para classe que gerencia operações no repositório utilizando Models

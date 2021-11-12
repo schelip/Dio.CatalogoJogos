@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ApiCatalogoJogos.Infrastructure.Model
+namespace Dio.CatalogoJogos.Api.Infrastructure.Model
 {
     public abstract class InputModelBase
     {

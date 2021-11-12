@@ -1,7 +1,7 @@
 ﻿using System;
-using ApiCatalogoJogos.Business.Entities;
+using Dio.CatalogoJogos.Api.Business.Entities;
 
-namespace ApiCatalogoJogos.Business.Exceptions
+namespace Dio.CatalogoJogos.Api.Business.Exceptions
 {
     /// <summary>
     /// Utilizada quando entidade buscada não está cadastrada

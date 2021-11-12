@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using ApiCatalogoJogos.Enum;
+using Dio.CatalogoJogos.Api.Enum;
 
-namespace ApiCatalogoJogos.Infrastructure.Model.ViewModel
+namespace Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel
 {
     public class UsuarioViewModel : ViewModelBase
     {
