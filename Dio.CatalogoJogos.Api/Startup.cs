@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 using Dio.CatalogoJogos.Api.Data.Infrastructure;
 using Dio.CatalogoJogos.Api.Extensions;
 using Dio.CatalogoJogos.Api.Infrastructure.Authorization;
-using Dio.CatalogoJogos.Api.Infrastructure.MIddleware;
+using Dio.CatalogoJogos.Api.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -29,10 +29,10 @@ namespace Dio.CatalogoJogos.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AddInjections("Dio.CatalogoJogos.Api.Business.Repositories",
-                "Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories", services);
-            AddInjections("Dio.CatalogoJogos.Api.Business.Services",
-                "Dio.CatalogoJogos.Api.Infrastructure.Services", services);
+            AddInjections("Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories",
+                "Dio.CatalogoJogos.Api.Business.Repositories", services);
+            AddInjections("Dio.CatalogoJogos.Api.Infrastructure.Services",
+                "Dio.CatalogoJogos.Api.Business.Services", services);
 
             services.AddScoped<IJwtUtils, JwtUtils>();
 
