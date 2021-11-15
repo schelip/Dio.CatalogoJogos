@@ -9,10 +9,10 @@ namespace Dio.CatalogoJogos.Api.Data.Infrastructure
 {
     public class CatalogoJogosDbContext : DbContext
     {
-        public DbSet<Jogo> Jogos { get; set; }
-        public DbSet<Produtora> Produtoras { get; set; }
-        public DbSet<Usuario> Usuarios { get; set; }
-        public DbSet<UsuarioJogo> UsuarioJogos { get; set; }
+        public virtual DbSet<Jogo> Jogos { get; set; }
+        public virtual DbSet<Produtora> Produtoras { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
+        public virtual DbSet<UsuarioJogo> UsuarioJogos { get; set; }
 
         public CatalogoJogosDbContext(DbContextOptions<CatalogoJogosDbContext> options)
             : base(options)

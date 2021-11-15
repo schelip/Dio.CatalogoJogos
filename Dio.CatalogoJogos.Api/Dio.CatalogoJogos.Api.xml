@@ -89,317 +89,6 @@
             Utilizada quando a validação de um ISO de país falha
             </summary>
         </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IProdutoraRepository.Obter(System.String)">
-            <summary>
-            Obtém produtoras de um país
-            </summary>
-            <param name="ISOPais">ISO de duas letras do país</param>
-            <returns>Lista de produtoras obtidas</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IProdutoraRepository.ObterFilhas(Dio.CatalogoJogos.Api.Business.Entities.Named.Produtora)">
-            <summary>
-            Obtém produtoras filhas de uma produtora
-            </summary>
-            <param name="mae">Produtora da qual obter as filhas</param>
-            <returns>Lista de produtoras filhas</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IProdutoraRepository.ObterJogos(Dio.CatalogoJogos.Api.Business.Entities.Named.Produtora)">
-            <summary>
-            Obtém jogos produzidos por uma produtora
-            </summary>
-            <param name="produtora">Produtora da qual obter os jogos</param>
-            <returns>Lista de jogos</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IRepositoryBase`1.Obter(System.Int32,System.Int32)">
-            <summary>
-            Obtém uma determinada quantidade de entidades do contexto a partir de um offset
-            </summary>
-            <param name="pagina">Offset (1 = nenhum offset)</param>
-            <param name="quantidade">Quantidade de entidades por página</param>
-            <returns>Lista das entidades obtidas</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IRepositoryBase`1.Obter(System.Guid)">
-            <summary>
-            Obtém entidade do contexto pelo seu Id
-            </summary>
-            <param name="id">Id da entidade a ser obtida</param>
-            <returns>Entidade obtida</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IRepositoryBase`1.Obter``1(System.Guid)">
-            <summary>
-            Obtém entidade de um tipo possivelmente diferente de <c>T</c> 
-            </summary>
-            <typeparam name="TExternal">Tipo da entidade a ser obtida</typeparam>
-            <param name="id">Id da entidade a ser obtida</param>
-            <returns>Entidade obtida</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IRepositoryBase`1.Inserir(`0)">
-            <summary>
-            Insere entidade no contexto
-            </summary>
-            <param name="entidade">Entidade a ser inserida</param>
-            <returns>Entidade inserida</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IRepositoryBase`1.Atualizar(`0)">
-            <summary>
-            Atualiza todos os dados de uma produtora no contexto
-            </summary>
-            <param name="entidade">Novos dados da produtora</param>
-            <returns>Entidade atualizada</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IRepositoryBase`1.Remover(System.Guid)">
-            <summary>
-            Remove entidade do contexto
-            </summary>
-            <param name="id">Id da entidade a ser removida</param>
-            <returns></returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IUsuarioRepository.AdicionarJogo(Dio.CatalogoJogos.Api.Business.Entities.Named.Usuario,Dio.CatalogoJogos.Api.Business.Entities.Named.Jogo)">
-            <summary>
-            Adiciona jogo à lista de jogos do usuário
-            </summary>
-            <param name="usuario">Usuário que adquiriu o jogo</param>
-            <param name="jogo">Jogo que foi adquirido</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IUsuarioRepository.Obter(System.String)">
-            <summary>
-            Obtém usuário a partir de seu email
-            </summary>
-            <param name="email">Email do usuário a ser obtido</param>
-            <returns>Usuário obtido</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Repositories.IUsuarioRepository.ObterJogos(Dio.CatalogoJogos.Api.Business.Entities.Named.Usuario)">
-            <summary>
-            Obtém lista de jogos de um usuário
-            </summary>
-            <param name="usuario">Usuário do qual recuperar lista de jogos</param>
-            <returns>Lista de jogos obtidos</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IJogoService.AtualizarValor(System.Guid,System.Single)">
-            <summary>
-            Atualiza valor de um jogo
-            </summary>
-            <param name="id">Id do jogo a ser atualizado</param>
-            <param name="valor">Novo valor</param>
-            <returns>ViewModel atualizada do jogo</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IProdutoraService.Obter(System.String)">
-            <summary>
-            Obtém ViewModels de Produtoras de um país
-            </summary>
-            <param name="ISOPais">ISO de duas letras do país de origem</param>
-            <returns>Lista de ViewModels obtidas</returns>
-        </member>
-        <member name="T:Dio.CatalogoJogos.Api.Business.Services.IServiceBase`2">
-            <summary>
-            Contrato para classe que gerencia operações no repositório utilizando Models
-            </summary>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IServiceBase`2.Obter(System.Int32,System.Int32)">
-            <summary>
-            Obtém uma quantidade definida de ViewModels de entidades a partir de um offset
-            </summary>
-            <param name="pagina">Offset (1 = nenhum offset)</param>
-            <param name="quantidade">Quantidade de ViewModels por página</param>
-            <returns>Lista das ViewModels obtidas</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IServiceBase`2.Obter(System.Guid)">
-            <summary>
-            Obtém ViewModel de entidade do respositório pelo Id
-            </summary>
-            <param name="id">Id da entidade a ser obtida</param>
-            <returns>ViewModel obtida</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade cadastrada com esse id</exception>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IServiceBase`2.Inserir(`0)">
-            <summary>
-            Insere entidade no repositório a partir de uma InputModel
-            </summary>
-            <param name="inputModel">InputModel da entidade a ser inserida</param>
-            <returns>ViewModel da entidade inserida</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeJaCadastradaException">Se existe um entidade conflitante já cadastrada</exception>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IServiceBase`2.Atualizar(System.Guid,`0)">
-            <summary>
-            Atualiza todos os dados de uma entidade cadastrada para os dados de uma InputModel
-            </summary>
-            <param name="id">Id do entidade a ser atualizado</param>
-            <param name="inputModel">InputModel com novos dados para a entidade</param>
-            <returns>ViewModel da entidade atualizada</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IServiceBase`2.Remover(System.Guid)">
-            <summary>
-            Remove entidade do repositório
-            </summary>
-            <param name="id">Id da entidade a ser removida</param>
-            <returns></returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IUsuarioService.AdicionarJogo(System.Guid,System.Guid)">
-            <summary>
-            Adiciona jogo à lista de jogos de um usuário
-            </summary>
-            <param name="idUsuario">Id do usuário</param>
-            <param name="idJogo">Id do jogo</param>
-            <returns>ViewModel atualizada do usuário</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.FundosInsuficientesException"/>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IUsuarioService.AtualizarFundos(System.Guid,System.Single)">
-            <summary>
-            Atualiza os fundos de um usuário
-            </summary>
-            <param name="guid">Id do usuário</param>
-            <param name="quant">Quantidade de fundos</param>
-            <returns>ViewModel atualizada do usuário</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IUsuarioService.Autenticar(Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.LoginInputModel)">
-            <summary>
-            Autentica usuario e retorna token jwt
-            </summary>
-            <param name="inputModel">LoginInputModel com os dados a serem validados</param>
-            <returns>ViewModel da autenticacao</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Business.Services.IUsuarioService.Obter(System.String)">
-            <summary>
-            Obtém ViewModel de usuário a partir de seu email
-            </summary>
-            <param name="email">Email do usuário a ser obtido</param>
-            <returns>ViewModel do usuário encontrado obtida</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.JogoController.Obter(System.Int32,System.Int32)">
-            <summary>
-            Obtém uma lista de jogos com uma quantidade e offset definidos
-            </summary>
-            <param name="pagina">Define o offset</param>
-            <param name="quantidade">Define a quantidade em cada pagina</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.JogoController.Obter(System.Guid)">
-            <summary>
-            Obtém jogo a partir de seu Id
-            </summary>
-            <param name="id">Id do jogo</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.JogoController.Inserir(Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.JogoInputModel)">
-            <summary>
-            Insere novo jogo
-            </summary>
-            <param name="jogoInputModel">Jogo a ser inserido</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.JogoController.Atualizar(System.Guid,Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.JogoInputModel)">
-            <summary>
-            Atualiza todos os campos de um jogo
-            </summary>
-            <param name="id">Id do jogo a ser atualizado</param>
-            <param name="jogoInputModel">Jogo com novas características cofiguradas</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.JogoController.Atualizar(System.Guid,System.Single)">
-            <summary>
-            Atualiza valor de um jogo
-            </summary>
-            <param name="id">Id do jogo a ser atualizado</param>
-            <param name="quant">Novo valor</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.JogoController.Remover(System.Guid)">
-            <summary>
-            Remove jogo
-            </summary>
-            <param name="id">Id do jogo a ser removido</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.ProdutoraController.Obter(System.Int32,System.Int32)">
-            <summary>
-            Obtém uma lista de produtoras com uma quantidade e offset definidos
-            </summary>
-            <param name="pagina">Define o offset</param>
-            <param name="quantidade">Define a quantidade em cada pagina</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.ProdutoraController.Obter(System.String)">
-            <summary>
-            Obtém todas as produtoras de um país de origem
-            </summary>
-            <param name="isoPais">Nome do país de origem</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.ProdutoraController.Obter(System.Guid)">
-            <summary>
-            Obtém produtora a partir de seu Id
-            </summary>
-            <param name="id">Id da produtora</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.ProdutoraController.Inserir(Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.ProdutoraInputModel)">
-            <summary>
-            Insere nova produtora
-            </summary>
-            <param name="produtoraInput">Produtora a ser inserida</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.ProdutoraController.Atualizar(System.Guid,Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.ProdutoraInputModel)">
-            <summary>
-            Atualiza todos os campos de uma produtora
-            </summary>
-            <param name="id">Id da produtora a ser atualizada</param>
-            <param name="produtoraInput">Produtora com as novas características configuradas</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.ProdutoraController.Remover(System.Guid)">
-            <summary>
-            Remove produtora
-            </summary>
-            <param name="id">Id da produtora a ser removida</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Obter(System.Int32,System.Int32)">
-            <summary>
-            Obtém uma lista de usuários com uma quantidade e offset definidos
-            </summary>
-            <param name="pagina">Define o offset</param>
-            <param name="quantidade">Define a quantidade em cada pagina</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Obter(System.Guid)">
-            <summary>
-            Obtém usuário a partir de seu Id
-            </summary>
-            <param name="id">Id do usuário</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Inserir(Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.UsuarioInputModel)">
-            <summary>
-            Insere novo usuário
-            </summary>
-            <param name="usuarioInput">Usuário a ser inserido</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Atualizar(System.Guid,Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.UsuarioInputModel)">
-            <summary>
-            Atualiza todos os campos de um usuário
-            </summary>
-            <param name="id">Id do usuário a ser atualizado</param>
-            <param name="usuarioInput">Usuário com as novas características configuradas</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Atualizar(System.Guid,System.Single)">
-            <summary>
-            Atualiza fundos de um usuário
-            </summary>
-            <param name="id">Id do usuário a ser atualizado</param>
-            <param name="quant">Nova quantia de fundos</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Atualizar(System.Guid,System.Guid)">
-            <summary>
-            Adiciona jogo à lista de jogos do usuário
-            </summary>
-            <param name="id">Id do usuário</param>
-            <param name="idJogo">Id do jogo a ser adicionado</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Remover(System.Guid)">
-            <summary>
-            Remove usuário
-            </summary>
-            <param name="id">Id do usuário a ser removido</param>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Controllers.v1.UsuarioController.Autenticar(Dio.CatalogoJogos.Api.Infrastructure.Model.InputModel.LoginInputModel)">
-            <summary>
-            Autentica usuário cadastrado
-            </summary>
-            <param name="inputModel">InputModel contendo dados para login</param>
-        </member>
         <member name="T:Dio.CatalogoJogos.Api.Enum.PermissaoUsuario">
             <summary>
             Enum dos níveis de permissão dos usuários.
@@ -419,6 +108,324 @@
             <summary>
             Permissao máxima
             </summary>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IProdutoraRepository.Obter(System.String)">
+            <summary>
+            Obtém produtoras de um país
+            </summary>
+            <param name="ISOPais">ISO de duas letras do país</param>
+            <returns>Lista de produtoras obtidas</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IProdutoraRepository.ObterFilhas(Dio.CatalogoJogos.Api.Business.Entities.Named.Produtora)">
+            <summary>
+            Obtém produtoras filhas de uma produtora
+            </summary>
+            <param name="mae">Produtora da qual obter as filhas</param>
+            <returns>Lista de produtoras filhas</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IProdutoraRepository.ObterJogos(Dio.CatalogoJogos.Api.Business.Entities.Named.Produtora)">
+            <summary>
+            Obtém jogos produzidos por uma produtora
+            </summary>
+            <param name="produtora">Produtora da qual obter os jogos</param>
+            <returns>Lista de jogos</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma determinada quantidade de entidades do contexto a partir de um offset
+            </summary>
+            <param name="pagina">Offset (1 = nenhum offset)</param>
+            <param name="quantidade">Quantidade de entidades por página</param>
+            <returns>Lista das entidades obtidas</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.Obter(System.Guid)">
+            <summary>
+            Obtém entidade do contexto pelo seu Id
+            </summary>
+            <param name="id">Id da entidade a ser obtida</param>
+            <returns>Entidade obtida</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.Obter``1(System.Guid)">
+            <summary>
+            Obtém entidade de um tipo possivelmente diferente de <c>T</c> 
+            </summary>
+            <typeparam name="TExternal">Tipo da entidade a ser obtida</typeparam>
+            <param name="id">Id da entidade a ser obtida</param>
+            <returns>Entidade obtida</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.Inserir(`0)">
+            <summary>
+            Insere entidade no contexto
+            </summary>
+            <param name="entidade">Entidade a ser inserida</param>
+            <returns>Entidade inserida</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.Atualizar(`0)">
+            <summary>
+            Atualiza todos os dados de uma produtora no contexto
+            </summary>
+            <param name="entidade">Novos dados da produtora</param>
+            <returns>Entidade atualizada</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.Remover(System.Guid)">
+            <summary>
+            Remove entidade do contexto
+            </summary>
+            <param name="id">Id da entidade a ser removida</param>
+            <returns></returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.VerificaConflito(`0)">
+            <summary>
+            Verifica a existência de entidades conflitantes no contexto
+            </summary>
+            <param name="entidade">Entidade a ser verificada</param>
+            <returns><c>True</c> Se existem entidades conflitantes, <c>False</c> Se não</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IUsuarioRepository.AdicionarJogo(Dio.CatalogoJogos.Api.Business.Entities.Named.Usuario,Dio.CatalogoJogos.Api.Business.Entities.Named.Jogo)">
+            <summary>
+            Adiciona jogo à lista de jogos do usuário
+            </summary>
+            <param name="usuario">Usuário que adquiriu o jogo</param>
+            <param name="jogo">Jogo que foi adquirido</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IUsuarioRepository.Obter(System.String)">
+            <summary>
+            Obtém usuário a partir de seu email
+            </summary>
+            <param name="email">Email do usuário a ser obtido</param>
+            <returns>Usuário obtido</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IUsuarioRepository.ObterJogos(Dio.CatalogoJogos.Api.Business.Entities.Named.Usuario)">
+            <summary>
+            Obtém lista de jogos de um usuário
+            </summary>
+            <param name="usuario">Usuário do qual recuperar lista de jogos</param>
+            <returns>Lista de jogos obtidos</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IJogoService.AtualizarValor(System.Guid,System.Single)">
+            <summary>
+            Atualiza valor de um jogo
+            </summary>
+            <param name="id">Id do jogo a ser atualizado</param>
+            <param name="valor">Novo valor</param>
+            <returns>ViewModel atualizada do jogo</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IProdutoraService.Obter(System.String)">
+            <summary>
+            Obtém ViewModels de Produtoras de um país
+            </summary>
+            <param name="ISOPais">ISO de duas letras do país de origem</param>
+            <returns>Lista de ViewModels obtidas</returns>
+        </member>
+        <member name="T:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2">
+            <summary>
+            Contrato para classe que gerencia operações no repositório utilizando Models
+            </summary>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma quantidade definida de ViewModels de entidades a partir de um offset
+            </summary>
+            <param name="pagina">Offset (1 = nenhum offset)</param>
+            <param name="quantidade">Quantidade de ViewModels por página</param>
+            <returns>Lista das ViewModels obtidas</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Obter(System.Guid)">
+            <summary>
+            Obtém ViewModel de entidade do respositório pelo Id
+            </summary>
+            <param name="id">Id da entidade a ser obtida</param>
+            <returns>ViewModel obtida</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade cadastrada com esse id</exception>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Inserir(`0)">
+            <summary>
+            Insere entidade no repositório a partir de uma InputModel
+            </summary>
+            <param name="inputModel">InputModel da entidade a ser inserida</param>
+            <returns>ViewModel da entidade inserida</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeJaCadastradaException">Se existe um entidade conflitante já cadastrada</exception>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Atualizar(System.Guid,`0)">
+            <summary>
+            Atualiza todos os dados de uma entidade cadastrada para os dados de uma InputModel
+            </summary>
+            <param name="id">Id do entidade a ser atualizado</param>
+            <param name="inputModel">InputModel com novos dados para a entidade</param>
+            <returns>ViewModel da entidade atualizada</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Remover(System.Guid)">
+            <summary>
+            Remove entidade do repositório
+            </summary>
+            <param name="id">Id da entidade a ser removida</param>
+            <returns></returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IUsuarioService.AdicionarJogo(System.Guid,System.Guid)">
+            <summary>
+            Adiciona jogo à lista de jogos de um usuário
+            </summary>
+            <param name="idUsuario">Id do usuário</param>
+            <param name="idJogo">Id do jogo</param>
+            <returns>ViewModel atualizada do usuário</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.FundosInsuficientesException"/>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IUsuarioService.AtualizarFundos(System.Guid,System.Single)">
+            <summary>
+            Atualiza os fundos de um usuário
+            </summary>
+            <param name="guid">Id do usuário</param>
+            <param name="quant">Quantidade de fundos</param>
+            <returns>ViewModel atualizada do usuário</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IUsuarioService.Autenticar(Dio.CatalogoJogos.Api.Web.Model.InputModel.LoginInputModel)">
+            <summary>
+            Autentica usuario e retorna token jwt
+            </summary>
+            <param name="inputModel">LoginInputModel com os dados a serem validados</param>
+            <returns>ViewModel da autenticacao</returns>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IUsuarioService.Obter(System.String)">
+            <summary>
+            Obtém ViewModel de usuário a partir de seu email
+            </summary>
+            <param name="email">Email do usuário a ser obtido</param>
+            <returns>ViewModel do usuário encontrado obtida</returns>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma lista de jogos com uma quantidade e offset definidos
+            </summary>
+            <param name="pagina">Define o offset</param>
+            <param name="quantidade">Define a quantidade em cada pagina</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Obter(System.Guid)">
+            <summary>
+            Obtém jogo a partir de seu Id
+            </summary>
+            <param name="id">Id do jogo</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Inserir(Dio.CatalogoJogos.Api.Web.Model.InputModel.JogoInputModel)">
+            <summary>
+            Insere novo jogo
+            </summary>
+            <param name="jogoInputModel">Jogo a ser inserido</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Atualizar(System.Guid,Dio.CatalogoJogos.Api.Web.Model.InputModel.JogoInputModel)">
+            <summary>
+            Atualiza todos os campos de um jogo
+            </summary>
+            <param name="id">Id do jogo a ser atualizado</param>
+            <param name="jogoInputModel">Jogo com novas características cofiguradas</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Atualizar(System.Guid,System.Single)">
+            <summary>
+            Atualiza valor de um jogo
+            </summary>
+            <param name="id">Id do jogo a ser atualizado</param>
+            <param name="quant">Novo valor</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Remover(System.Guid)">
+            <summary>
+            Remove jogo
+            </summary>
+            <param name="id">Id do jogo a ser removido</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.ProdutoraController.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma lista de produtoras com uma quantidade e offset definidos
+            </summary>
+            <param name="pagina">Define o offset</param>
+            <param name="quantidade">Define a quantidade em cada pagina</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.ProdutoraController.Obter(System.String)">
+            <summary>
+            Obtém todas as produtoras de um país de origem
+            </summary>
+            <param name="isoPais">Nome do país de origem</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.ProdutoraController.Obter(System.Guid)">
+            <summary>
+            Obtém produtora a partir de seu Id
+            </summary>
+            <param name="id">Id da produtora</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.ProdutoraController.Inserir(Dio.CatalogoJogos.Api.Web.Model.InputModel.ProdutoraInputModel)">
+            <summary>
+            Insere nova produtora
+            </summary>
+            <param name="produtoraInput">Produtora a ser inserida</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.ProdutoraController.Atualizar(System.Guid,Dio.CatalogoJogos.Api.Web.Model.InputModel.ProdutoraInputModel)">
+            <summary>
+            Atualiza todos os campos de uma produtora
+            </summary>
+            <param name="id">Id da produtora a ser atualizada</param>
+            <param name="produtoraInput">Produtora com as novas características configuradas</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.ProdutoraController.Remover(System.Guid)">
+            <summary>
+            Remove produtora
+            </summary>
+            <param name="id">Id da produtora a ser removida</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Obter(System.Int32,System.Int32)">
+            <summary>
+            Obtém uma lista de usuários com uma quantidade e offset definidos
+            </summary>
+            <param name="pagina">Define o offset</param>
+            <param name="quantidade">Define a quantidade em cada pagina</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Obter(System.Guid)">
+            <summary>
+            Obtém usuário a partir de seu Id
+            </summary>
+            <param name="id">Id do usuário</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Inserir(Dio.CatalogoJogos.Api.Web.Model.InputModel.UsuarioInputModel)">
+            <summary>
+            Insere novo usuário
+            </summary>
+            <param name="usuarioInput">Usuário a ser inserido</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Atualizar(System.Guid,Dio.CatalogoJogos.Api.Web.Model.InputModel.UsuarioInputModel)">
+            <summary>
+            Atualiza todos os campos de um usuário
+            </summary>
+            <param name="id">Id do usuário a ser atualizado</param>
+            <param name="usuarioInput">Usuário com as novas características configuradas</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Atualizar(System.Guid,System.Single)">
+            <summary>
+            Atualiza fundos de um usuário
+            </summary>
+            <param name="id">Id do usuário a ser atualizado</param>
+            <param name="quant">Nova quantia de fundos</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Atualizar(System.Guid,System.Guid)">
+            <summary>
+            Adiciona jogo à lista de jogos do usuário
+            </summary>
+            <param name="id">Id do usuário</param>
+            <param name="idJogo">Id do jogo a ser adicionado</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Remover(System.Guid)">
+            <summary>
+            Remove usuário
+            </summary>
+            <param name="id">Id do usuário a ser removido</param>
+        </member>
+        <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.UsuarioController.Autenticar(Dio.CatalogoJogos.Api.Web.Model.InputModel.LoginInputModel)">
+            <summary>
+            Autentica usuário cadastrado
+            </summary>
+            <param name="inputModel">InputModel contendo dados para login</param>
         </member>
     </members>
 </doc>
