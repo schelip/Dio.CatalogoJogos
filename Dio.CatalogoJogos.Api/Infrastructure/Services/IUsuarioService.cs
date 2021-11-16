@@ -30,13 +30,7 @@ namespace Dio.CatalogoJogos.Api.Infrastructure.Services
         /// </summary>
         /// <param name="inputModel">LoginInputModel com os dados a serem validados</param>
         /// <returns>ViewModel da autenticacao</returns>
+        /// <exception cref="ModelInvalidoException"/>
         Task<(string, UsuarioViewModel)> Autenticar(LoginInputModel inputModel);
-        /// <summary>
-        /// Obtém ViewModel de usuário a partir de seu email
-        /// </summary>
-        /// <param name="email">Email do usuário a ser obtido</param>
-        /// <returns>ViewModel do usuário encontrado obtida</returns>
-        /// <exception cref="EntidadeNaoCadastradaException"/>
-        Task<UsuarioViewModel> Obter(string email);
     }
 }

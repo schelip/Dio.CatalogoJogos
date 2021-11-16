@@ -22,7 +22,7 @@ namespace Dio.CatalogoJogos.Api.Migrations
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SenhaHash = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Fundos = table.Column<float>(type: "real", nullable: false),
-                    Permissao = table.Column<int>(type: "int", nullable: false),
+                    Permissao = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Nome = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>

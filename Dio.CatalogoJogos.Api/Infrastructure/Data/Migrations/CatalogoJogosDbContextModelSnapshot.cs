@@ -102,8 +102,8 @@ namespace Dio.CatalogoJogos.Api.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Permissao")
-                        .HasColumnType("int");
+                    b.Property<string>("Permissao")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SenhaHash")
                         .HasColumnType("nvarchar(max)");
