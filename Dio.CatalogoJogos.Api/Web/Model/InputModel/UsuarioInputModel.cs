@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using Dio.CatalogoJogos.Api.Enum;
 
 namespace Dio.CatalogoJogos.Api.Web.Model.InputModel
 {
@@ -9,6 +8,6 @@ namespace Dio.CatalogoJogos.Api.Web.Model.InputModel
         public string Email { get; set; }
         public string Senha { get; set; }
         public float Fundos { get; set; }
-        public PermissaoUsuario Permissao { get; set; }
+        public string Permissao { get; set; }
     }
 }
