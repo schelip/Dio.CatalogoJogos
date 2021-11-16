@@ -33,10 +33,10 @@ namespace Dio.CatalogoJogos.Api.Business.Repositories
             return jogos;
         }
 
-        public override Task<bool> VerificaConflito(Produtora produtora)
+        public override async Task<Produtora> ObterConflitante(Produtora produtora)
         {
-            return Task.FromResult(_dbSet.Any(p => p.Nome == produtora.Nome
-                && p.ProdutoraMae == produtora.ProdutoraMae));
+            return await _dbSet.FirstOrDefaultAsync(p => p.Nome == produtora.Nome
+                && p.ProdutoraMae == produtora.ProdutoraMae);
         }
     }
 }

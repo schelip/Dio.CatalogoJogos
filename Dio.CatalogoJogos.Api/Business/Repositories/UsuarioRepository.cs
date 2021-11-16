@@ -55,9 +55,9 @@ namespace Dio.CatalogoJogos.Api.Business.Repositories
                 .ToListAsync();
         }
 
-        public override Task<bool> VerificaConflito(Usuario usuario)
+        public override async Task<Usuario> ObterConflitante(Usuario usuario)
         {
-            return Task.FromResult(_dbSet.Any(u => u.Email == usuario.Email));
+            return await _dbSet.FirstOrDefaultAsync(u => u.Email == usuario.Email);
         }
     }
 }

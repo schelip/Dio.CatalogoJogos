@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Dio.CatalogoJogos.Api.Business.Entities.Composites;
-using Dio.CatalogoJogos.Api.Enum;
 
 namespace Dio.CatalogoJogos.Api.Business.Entities.Named
 {
@@ -27,6 +26,6 @@ namespace Dio.CatalogoJogos.Api.Business.Entities.Named
         /// <summary>
         /// Nível de permissão
         /// </summary>
-        public PermissaoUsuario Permissao { get; set; }
+        public string Permissao { get; set; }
     }
 }

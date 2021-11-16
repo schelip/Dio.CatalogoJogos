@@ -37,14 +37,14 @@ namespace Dio.CatalogoJogos.Api.Business.Services
                     Id = Guid.NewGuid(),
                     UsuarioJogos = new List<UsuarioJogo>()
                 }
-                : await _repository.Obter(guid);
-
-            if (jogo == null)
-                return null;
+                : await _repository.Obter(guid)
+                ?? throw new EntidadeNaoCadastradaException(guid);
 
             jogo.Nome = inputModel.Nome;
             jogo.Ano = inputModel.Ano;
             jogo.ProdutoraId = inputModel.ProdutoraId;
+            jogo.Produtora = await _repository.Obter<Produtora>(inputModel.ProdutoraId)
+                ?? throw new EntidadeNaoCadastradaException(inputModel.ProdutoraId);
             jogo.Valor = inputModel.Valor;
 
             return jogo;
