@@ -33,6 +33,7 @@ namespace Dio.CatalogoJogos.Api.Infrastructure.Services
         /// <param name="inputModel">InputModel da entidade a ser inserida</param>
         /// <returns>ViewModel da entidade inserida</returns>
         /// <exception cref="EntidadeJaCadastradaException">Se existe um entidade conflitante já cadastrada</exception>
+        /// <exception cref="ModelInvalidoException">Se ocorreu um erro na validação dos dados do InputModel</exception>
         Task<TViewModel> Inserir(TInputModel inputModel);
         /// <summary>
         /// Atualiza todos os dados de uma entidade cadastrada para os dados de uma InputModel
@@ -41,6 +42,7 @@ namespace Dio.CatalogoJogos.Api.Infrastructure.Services
         /// <param name="inputModel">InputModel com novos dados para a entidade</param>
         /// <returns>ViewModel da entidade atualizada</returns>
         /// <exception cref="EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
+        /// /// <exception cref="ModelInvalidoException">Se ocorreu um erro na validação dos dados do InputModel</exception>
         Task<TViewModel> Atualizar(Guid id, TInputModel inputModel);
         /// <summary>
         /// Remove entidade do repositório

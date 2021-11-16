@@ -45,7 +45,6 @@ namespace Dio.CatalogoJogos.Api.Business.Repositories
             return await _dbSet.FindAsync(entidade.Id);
         }
 
-
         public virtual async Task<T> Atualizar(T entidade)
         {
             _context.Update(entidade);
@@ -64,6 +63,6 @@ namespace Dio.CatalogoJogos.Api.Business.Repositories
             _context.Dispose();
         }
 
-        public abstract Task<bool> VerificaConflito(T entidade);
+        public abstract Task<T> ObterConflitante(T entidade);
     }
 }

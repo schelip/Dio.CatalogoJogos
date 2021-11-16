@@ -4,17 +4,16 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Dio.CatalogoJogos.Api.Business.Exceptions;
-using Dio.CatalogoJogos.Api.Enum;
-using Dio.CatalogoJogos.Api.Infrastructure.Authorization;
-using Dio.CatalogoJogos.Api.Web.Model.InputModel;
 using Dio.CatalogoJogos.Api.Infrastructure.Model.ViewModel;
 using Dio.CatalogoJogos.Api.Infrastructure.Services;
+using Dio.CatalogoJogos.Api.Web.Model.InputModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Dio.CatalogoJogos.Api.Web.Controllers.v1
 {
-    [Authorize(PermissaoUsuario.Moderador, PermissaoUsuario.Administrador)]
+    [Authorize(Roles = "Administrador,Moderador")]
     [Route("api/v1/jogos")]
     [ApiController]
     public class JogoController : ControllerBase
@@ -59,15 +58,8 @@ namespace Dio.CatalogoJogos.Api.Web.Controllers.v1
         [HttpGet("{id:guid}")]
         public async Task<ActionResult<JogoViewModel>> Obter([FromRoute] Guid id)
         {
-            try
-            {
-                var jogo = await _service.Obter(id);
-                return Ok(jogo);
-            }
-            catch (EntidadeNaoCadastradaException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var jogo = await _service.Obter(id);
+            return Ok(jogo);
         }
 
         /// <summary>
@@ -75,22 +67,13 @@ namespace Dio.CatalogoJogos.Api.Web.Controllers.v1
         /// </summary>
         /// <param name="jogoInputModel">Jogo a ser inserido</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo adicionado", Type = typeof(JogoViewModel))]
-        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 422, description: "Erro durante a inserção")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPost]
         public async Task<ActionResult<JogoViewModel>> Inserir([FromBody] JogoInputModel jogoInputModel)
         {
-            try
-            {
-                var jogo = await _service.Inserir(jogoInputModel);
-
-                return Created("", jogo);
-            }
-            catch (EntidadeJaCadastradaException ex)
-            {
-                return UnprocessableEntity(ex.Message);
-            }
+            var jogo = await _service.Inserir(jogoInputModel);
+            return Created("", jogo);
         }
 
         /// <summary>
@@ -99,22 +82,13 @@ namespace Dio.CatalogoJogos.Api.Web.Controllers.v1
         /// <param name="id">Id do jogo a ser atualizado</param>
         /// <param name="jogoInputModel">Jogo com novas características cofiguradas</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo atualizado", Type = typeof(JogoViewModel))]
-        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPut("{id:guid}")]
         public async Task<ActionResult<JogoViewModel>> Atualizar([FromRoute] Guid id, [FromBody] JogoInputModel jogoInputModel)
         {
-            try
-            {
-                var jogoViewModel = await _service.Atualizar(id, jogoInputModel);
-
-                return Ok(jogoViewModel);
-            }
-            catch (EntidadeNaoCadastradaException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var jogoViewModel = await _service.Atualizar(id, jogoInputModel);
+            return Ok(jogoViewModel);
         }
 
         /// <summary>
@@ -123,23 +97,14 @@ namespace Dio.CatalogoJogos.Api.Web.Controllers.v1
         /// <param name="id">Id do jogo a ser atualizado</param>
         /// <param name="quant">Novo valor</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o jogo atualizado", Type = typeof(JogoViewModel))]
-        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 400, description: "Erro nos dados informados")]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpPatch("{id:guid}/valor/{quant:float}")]
         public async Task<ActionResult<JogoViewModel>> Atualizar([FromRoute] Guid id, [FromRoute] float quant)
         {
-            try
-            {
-                var jogoViewModel = await _service.AtualizarValor(id, quant);
-
-                return Ok(jogoViewModel);
-            }
-            catch (EntidadeNaoCadastradaException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            var jogoViewModel = await _service.AtualizarValor(id, quant);
+            return Ok(jogoViewModel);
         }
 
         /// <summary>
@@ -147,22 +112,13 @@ namespace Dio.CatalogoJogos.Api.Web.Controllers.v1
         /// </summary>
         /// <param name="id">Id do jogo a ser removido</param>
         [SwaggerResponse(statusCode: 200, description: "Retorna o id do jogo removido")]
-        [SwaggerResponse(statusCode: 401, description: "Permissão insuficiente")]
         [SwaggerResponse(statusCode: 404, description: "Jogo não encontrado")]
         [SwaggerResponse(statusCode: 500, description: "Erro interno")]
         [HttpDelete("{id:guid}")]
         public async Task<ActionResult> Remover([FromRoute] Guid id)
         {
-            try
-            {
-                await _service.Remover(id);
-
-                return Ok($"Jogo de id {id} removido");
-            }
-            catch (EntidadeNaoCadastradaException ex)
-            {
-                return NotFound(ex.Message);
-            }
+            await _service.Remover(id);
+            return Ok($"Jogo de id {id} removido");
         }
     }
 }

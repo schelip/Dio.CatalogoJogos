@@ -33,17 +33,18 @@ namespace Dio.CatalogoJogos.Api.Business.Services
             var entidade = await _repository.Obter(id);
 
             if (entidade == null)
-                throw new EntidadeNaoCadastradaException();
+                throw new EntidadeNaoCadastradaException(id);
 
             return await ObterViewModel(entidade);
         }
 
         public virtual async Task<TViewModel> Inserir(TInputModel inputModel)
         {
-            var entidade = await ObterEntidade(Guid.Empty, inputModel);
+            var entidade = await ObterEntidade(inputModel);
+            var conflitante = await _repository.ObterConflitante(entidade);
 
-            if (await VerificaConflito(entidade))
-                throw new EntidadeJaCadastradaException();
+            if (conflitante != null)
+                throw new EntidadeJaCadastradaException(conflitante.Id);
 
             await _repository.Inserir(entidade);
 
@@ -53,9 +54,6 @@ namespace Dio.CatalogoJogos.Api.Business.Services
         public virtual async Task<TViewModel> Atualizar(Guid id, TInputModel inputModel)
         {
             var entidade = await ObterEntidade(id, inputModel);
-
-            if (entidade == null)
-                throw new EntidadeNaoCadastradaException(id);
 
             await _repository.Atualizar(entidade);
 
@@ -86,10 +84,10 @@ namespace Dio.CatalogoJogos.Api.Business.Services
 
             return list;
         }
-
-        protected virtual async Task<bool> VerificaConflito(TEntity entidade)
+        
+        protected virtual async Task<TEntity> ObterEntidade(TInputModel inputModel)
         {
-            return await _repository.VerificaConflito(entidade);
+            return await ObterEntidade(Guid.Empty, inputModel);
         }
 
         protected abstract Task<TEntity> ObterEntidade(Guid guid, TInputModel inputModel);

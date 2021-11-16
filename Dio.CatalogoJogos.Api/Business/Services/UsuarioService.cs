@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using Dio.CatalogoJogos.Api.Business.Entities.Composites;
 using Dio.CatalogoJogos.Api.Business.Entities.Named;
@@ -28,22 +29,15 @@ namespace Dio.CatalogoJogos.Api.Business.Services
         {
             var usuario = await _repository.Obter(inputModel.Email);
 
-            if (usuario == null || !BCrypt.Net.BCrypt.Verify(inputModel.Senha, usuario.SenhaHash))
-                throw new AutenticacaoException("Email ou Senha inválidos");
+            if (usuario == null)
+                throw new EntidadeNaoCadastradaException("Email inválido");
+
+            if (!BCrypt.Net.BCrypt.Verify(inputModel.Senha, usuario.SenhaHash))
+                throw new ModelInvalidoException("Senha inválida");
 
             var token = _jwtUtils.GerarJwtToken(usuario);
 
             return (token, await ObterViewModel(usuario));
-        }
-
-        public async Task<UsuarioViewModel> Obter(string email)
-        {
-            var usuario = await _repository.Obter(email);
-
-            if (usuario == null)
-                throw new EntidadeNaoCadastradaException("Usuário de email "+ email + "não encontrado");
-
-            return await ObterViewModel(usuario);
         }
 
         public async Task<UsuarioViewModel> AtualizarFundos(Guid guid, float quant)
@@ -69,8 +63,11 @@ namespace Dio.CatalogoJogos.Api.Business.Services
             if (jogo == null)
                 throw new EntidadeNaoCadastradaException(idJogo);
 
+            if (usuario.UsuarioJogos.Any(uj => uj.JogoId == idJogo))
+                throw new EntidadeJaCadastradaException("O usuário já possui esse jogo");
+
             if (jogo.Valor > usuario.Fundos)
-                throw new FundosInsuficientesException();
+                throw new FundosInsuficientesException(jogo.Valor - usuario.Fundos);
 
             await _repository.AdicionarJogo(usuario, jogo);
             await AtualizarFundos(idUsuario, usuario.Fundos - jogo.Valor);
@@ -79,6 +76,8 @@ namespace Dio.CatalogoJogos.Api.Business.Services
 
         protected override async Task<Usuario> ObterEntidade(Guid guid, UsuarioInputModel inputModel)
         {
+            ValidarPermissao(inputModel.Permissao);
+
             var usuario = guid == Guid.Empty
                 ? new Usuario()
                 {
@@ -86,7 +85,7 @@ namespace Dio.CatalogoJogos.Api.Business.Services
                     UsuarioJogos = new List<UsuarioJogo>()
                 }
                 : await _repository.Obter(guid)
-                    ?? throw new EntidadeNaoCadastradaException(guid);
+                ?? throw new EntidadeNaoCadastradaException(guid);
 
             usuario.Nome = inputModel.Nome;
             usuario.Email = inputModel.Email;
@@ -104,12 +103,22 @@ namespace Dio.CatalogoJogos.Api.Business.Services
                 Id = usuario.Id,
                 Nome = usuario.Nome,
                 Email = usuario.Email,
-                Senha = usuario.SenhaHash,
                 Fundos = usuario.Fundos,
                 Permissao = usuario.Permissao,
                 Jogos = (await _repository.ObterJogos(usuario))
                     .Select(j => j.Id).ToList()
             };
+        }
+
+        // Util
+        private void ValidarPermissao(string permissao)
+        {
+            var permissoes = typeof(PermissaoUsuario).GetFields(
+                BindingFlags.Public | BindingFlags.Static | BindingFlags.FlattenHierarchy)
+                .Select(p => p.GetValue(null) as string);
+
+            if (!permissoes.Contains(permissao))
+                throw new ModelInvalidoException("A permissão informada não existe");
         }
     }
 }

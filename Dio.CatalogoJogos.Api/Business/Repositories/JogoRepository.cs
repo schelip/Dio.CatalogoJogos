@@ -1,8 +1,8 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Dio.CatalogoJogos.Api.Business.Entities.Named;
 using Dio.CatalogoJogos.Api.Data.Infrastructure;
 using Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dio.CatalogoJogos.Api.Business.Repositories
 {
@@ -11,9 +11,10 @@ namespace Dio.CatalogoJogos.Api.Business.Repositories
         public JogoRepository(CatalogoJogosDbContext context) : base(context)
         {}
 
-        public override Task<bool> VerificaConflito(Jogo jogo)
+        public override async Task<Jogo> ObterConflitante(Jogo jogo)
         {
-            return Task.FromResult(_dbSet.Any(j => j.Nome == jogo.Nome && j.ProdutoraId == jogo.ProdutoraId));
+            return await _dbSet.FirstOrDefaultAsync(j => j.Nome == jogo.Nome
+                && j.ProdutoraId == jogo.ProdutoraId);
         }
     }
 }

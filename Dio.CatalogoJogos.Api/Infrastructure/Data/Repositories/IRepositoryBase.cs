@@ -50,6 +50,6 @@ namespace Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories
         /// </summary>
         /// <param name="entidade">Entidade a ser verificada</param>
         /// <returns><c>True</c> Se existem entidades conflitantes, <c>False</c> Se não</returns>
-        Task<bool> VerificaConflito(T entidade);
+        Task<T> ObterConflitante(T entidade);
     }
 }

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dio.CatalogoJogos.Api.Migrations
 {
     [DbContext(typeof(CatalogoJogosDbContext))]
-    [Migration("20211112000730_Add-Usuarios")]
+    [Migration("20211115220402_Add-Usuarios")]
     partial class AddUsuarios
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -104,8 +104,8 @@ namespace Dio.CatalogoJogos.Api.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Permissao")
-                        .HasColumnType("int");
+                    b.Property<string>("Permissao")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SenhaHash")
                         .HasColumnType("nvarchar(max)");
