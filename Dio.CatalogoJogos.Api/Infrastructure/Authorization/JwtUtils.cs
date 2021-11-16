@@ -12,7 +12,6 @@ namespace Dio.CatalogoJogos.Api.Infrastructure.Authorization
     public interface IJwtUtils
     {
         public string GerarJwtToken(Usuario usuario);
-        //public Guid? ValidarJwtToken(string token);
     }
 
     public class JwtUtils : IJwtUtils
@@ -43,35 +42,5 @@ namespace Dio.CatalogoJogos.Api.Infrastructure.Authorization
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
-
-        /*public Guid? ValidarJwtToken(string token)
-        {
-            if (token == null)
-                return null;
-
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-            try
-            {
-                tokenHandler.ValidateToken(token, new TokenValidationParameters()
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out SecurityToken validatedToken);
-
-                var jwtToken = (JwtSecurityToken)validatedToken;
-                var userId = Guid.Parse(jwtToken.Claims.First(c => c.Type == "id").Value);
-
-                return userId;
-            }
-            catch
-            {
-                return null;
-            }
-        }*/
     }
 }
