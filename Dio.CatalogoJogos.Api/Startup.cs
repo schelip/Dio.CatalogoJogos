@@ -2,17 +2,20 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Text.Json.Serialization;
 using Dio.CatalogoJogos.Api.Data.Infrastructure;
-using Dio.CatalogoJogos.Api.Extensions;
+using Dio.CatalogoJogos.Api.Helpers;
 using Dio.CatalogoJogos.Api.Infrastructure.Authorization;
 using Dio.CatalogoJogos.Api.Middleware;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
 namespace Dio.CatalogoJogos.Api
@@ -29,9 +32,9 @@ namespace Dio.CatalogoJogos.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            AddInjections("Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories",
+            InjectByNamespace("Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories",
                 "Dio.CatalogoJogos.Api.Business.Repositories", services);
-            AddInjections("Dio.CatalogoJogos.Api.Infrastructure.Services",
+            InjectByNamespace("Dio.CatalogoJogos.Api.Infrastructure.Services",
                 "Dio.CatalogoJogos.Api.Business.Services", services);
 
             services.AddScoped<IJwtUtils, JwtUtils>();
@@ -44,6 +47,30 @@ namespace Dio.CatalogoJogos.Api
             services.AddControllers().AddJsonOptions(x =>
             {
                 x.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            });
+
+            var appSettingsSection = Configuration.GetSection("AppSettings");
+            services.Configure<AppSettings>(appSettingsSection);
+
+            var appSettings = appSettingsSection.Get<AppSettings>();
+            var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
             });
 
             services.AddSwaggerGen(c =>
@@ -100,7 +127,7 @@ namespace Dio.CatalogoJogos.Api
                 });
             }
 
-            //app.UseMiddleware<ExceptionMiddleware>();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
@@ -108,7 +135,7 @@ namespace Dio.CatalogoJogos.Api
 
             app.UseAuthentication();
 
-            app.UseMiddleware<JwtMiddleware>();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -117,16 +144,16 @@ namespace Dio.CatalogoJogos.Api
         }
 
         // Util
-        private void AddInjections(string contractNamespace, string implementationNamespace, IServiceCollection services)
+        private void InjectByNamespace(string contractNamespace, string implementationNamespace, IServiceCollection services)
         {
             var assembly = Assembly.GetExecutingAssembly();
 
-            var contractTypes = Helpers.GetTypes(contractNamespace, assembly)
+            var contractTypes = assembly.GetTypes(contractNamespace)
             .Where(t => !t.Name.Contains("Base"));
             foreach (var ct in contractTypes)
             {
-                var impName = ct.Name.Substring(1, ct.Name.Length-1);
-                var it = Helpers.GetTypes(implementationNamespace, assembly)
+                var impName = ct.Name[1..];
+                var it = assembly.GetTypes(implementationNamespace)
                     .Where(t => !t.Name.EndsWith("Base"))
                     .FirstOrDefault(t => t.Name.Equals(impName));
                 services.AddScoped(ct, it);

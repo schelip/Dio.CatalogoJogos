@@ -84,29 +84,9 @@
             Utilizada quando entidade buscada não está cadastrada
             </summary>
         </member>
-        <member name="T:Dio.CatalogoJogos.Api.Business.Exceptions.PaisInexistenteException">
+        <member name="T:Dio.CatalogoJogos.Api.Business.Exceptions.ModelInvalidoException">
             <summary>
-            Utilizada quando a validação de um ISO de país falha
-            </summary>
-        </member>
-        <member name="T:Dio.CatalogoJogos.Api.Enum.PermissaoUsuario">
-            <summary>
-            Enum dos níveis de permissão dos usuários.
-            </summary>
-        </member>
-        <member name="F:Dio.CatalogoJogos.Api.Enum.PermissaoUsuario.Usuario">
-            <summary>
-            Permissao para visualizar produtoras e jogos e atualizar suas próprias informações
-            </summary>
-        </member>
-        <member name="F:Dio.CatalogoJogos.Api.Enum.PermissaoUsuario.Moderador">
-            <summary>
-            Permissao para adicionar atualizar e remover produtoras e jogos
-            </summary>
-        </member>
-        <member name="F:Dio.CatalogoJogos.Api.Enum.PermissaoUsuario.Administrador">
-            <summary>
-            Permissao máxima
+            Utilizada quando a validação de uma Model falha
             </summary>
         </member>
         <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IProdutoraRepository.Obter(System.String)">
@@ -174,7 +154,7 @@
             <param name="id">Id da entidade a ser removida</param>
             <returns></returns>
         </member>
-        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.VerificaConflito(`0)">
+        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Data.Repositories.IRepositoryBase`1.ObterConflitante(`0)">
             <summary>
             Verifica a existência de entidades conflitantes no contexto
             </summary>
@@ -246,6 +226,7 @@
             <param name="inputModel">InputModel da entidade a ser inserida</param>
             <returns>ViewModel da entidade inserida</returns>
             <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeJaCadastradaException">Se existe um entidade conflitante já cadastrada</exception>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.ModelInvalidoException">Se ocorreu um erro na validação dos dados do InputModel</exception>
         </member>
         <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Atualizar(System.Guid,`0)">
             <summary>
@@ -255,6 +236,7 @@
             <param name="inputModel">InputModel com novos dados para a entidade</param>
             <returns>ViewModel da entidade atualizada</returns>
             <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException">Se não existe uma entidade com esse id cadastrada</exception>
+            /// <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.ModelInvalidoException">Se ocorreu um erro na validação dos dados do InputModel</exception>
         </member>
         <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IServiceBase`2.Remover(System.Guid)">
             <summary>
@@ -289,14 +271,7 @@
             </summary>
             <param name="inputModel">LoginInputModel com os dados a serem validados</param>
             <returns>ViewModel da autenticacao</returns>
-        </member>
-        <member name="M:Dio.CatalogoJogos.Api.Infrastructure.Services.IUsuarioService.Obter(System.String)">
-            <summary>
-            Obtém ViewModel de usuário a partir de seu email
-            </summary>
-            <param name="email">Email do usuário a ser obtido</param>
-            <returns>ViewModel do usuário encontrado obtida</returns>
-            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.EntidadeNaoCadastradaException"/>
+            <exception cref="T:Dio.CatalogoJogos.Api.Business.Exceptions.ModelInvalidoException"/>
         </member>
         <member name="M:Dio.CatalogoJogos.Api.Web.Controllers.v1.JogoController.Obter(System.Int32,System.Int32)">
             <summary>
