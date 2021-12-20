@@ -22,6 +22,8 @@ namespace Dio.CatalogoJogos.Api
 {
     public class Startup
     {
+        readonly string allowSpecificRequests = "_allowSpecificRequests";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -83,7 +85,7 @@ namespace Dio.CatalogoJogos.Api
 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
-                    Description = "Header de autorização JWT (Exemplo: 'Bearer 123456abcdef')",
+                    Description = "Header de autorizaï¿½ï¿½o JWT (Exemplo: 'Bearer 123456abcdef')",
                     Name = "Authorization",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey,
@@ -110,6 +112,17 @@ namespace Dio.CatalogoJogos.Api
 
                 c.EnableAnnotations();
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: allowSpecificRequests,
+                                  builder =>
+                                  {
+                                      builder
+                                        .WithOrigins(Configuration.GetSection("AllowedOrigins").Get<string[]>())
+                                        .AllowAnyHeader().AllowAnyMethod();
+                                  });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -132,6 +145,8 @@ namespace Dio.CatalogoJogos.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(allowSpecificRequests);
 
             app.UseAuthentication();
 
