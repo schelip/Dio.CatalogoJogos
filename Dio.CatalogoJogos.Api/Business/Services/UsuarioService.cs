@@ -63,10 +63,7 @@ namespace Dio.CatalogoJogos.Api.Business.Services
             if (jogo == null)
                 throw new EntidadeNaoCadastradaException(idJogo);
 
-            if (usuario.UsuarioJogos == null)
-                usuario.UsuarioJogos = new List<UsuarioJogo>();
-
-            else if (usuario.UsuarioJogos.Any(uj => uj.JogoId == idJogo))
+            if (usuario.UsuarioJogos.Any(uj => uj.JogoId == idJogo))
                 throw new EntidadeJaCadastradaException("O usuário já possui esse jogo");
 
             if (jogo.Valor > usuario.Fundos)

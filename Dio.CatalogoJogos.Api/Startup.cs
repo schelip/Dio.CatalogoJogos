@@ -120,7 +120,7 @@ namespace Dio.CatalogoJogos.Api
                                   {
                                       builder
                                         .WithOrigins(Configuration.GetSection("AllowedOrigins").Get<string[]>())
-                                        .AllowAnyHeader().AllowAnyMethod();
+                                        .AllowAnyHeader().AllowAnyMethod().AllowCredentials();
                                   });
             });
         }

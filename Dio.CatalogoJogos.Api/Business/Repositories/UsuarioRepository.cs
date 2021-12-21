@@ -14,7 +14,9 @@ namespace Dio.CatalogoJogos.Api.Business.Repositories
     {
         public UsuarioRepository(CatalogoJogosDbContext context)
             : base(context)
-        { }
+        {
+            _dbSet.Include(usuario => usuario.UsuarioJogos).ToList();
+        }
 
         public async Task<Usuario> Obter(string email)
         {
