@@ -15,6 +15,16 @@ Em relação ao projeto base:
 - Modificado Middleware customizado para tratamento de exceções
 - Adicionados testes unitários para as camadas de Controller e Service
 
+## Rodando o projeto
+
+Utilizando [EFCore](https://docs.microsoft.com/en-us/ef/core/cli/dotnet) para inicializar o banco de dados (SQL Server):
+### `$ dotnet ef database update`
+
+No projeto SQL `Dio.CatalogoJogos.Data` existem arquivos para popular a o banco de dados com um conjunto de dados iniciais. Caso a intenção seja utilizar também o projeto [`Data.CatalogoJogos.Client`](https://github.com/schelip/Dio.CatalogoJogos.Client), esses dados iniciais servem como um bom exemplo. Está incluso também um script que popula o banco de dados utilizando a opção `Publish` com o projeto aberto no Visual Studio. **[Tutorial](https://keyholesoftware.com/2016/12/12/creating-a-sql-database-project-for-isolated-development/)**
+
+Para iniciar a API: 
+### `$ dotnet build`
+### `$ dotnet run`
 
 ## Créditos da versão original:
 
