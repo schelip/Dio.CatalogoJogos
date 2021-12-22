@@ -1,0 +1,15 @@
+﻿CREATE TABLE [dbo].[TB_JOGO] (
+    [Id]          UNIQUEIDENTIFIER NOT NULL,
+    [Nome]        NVARCHAR (MAX)   NULL,
+    [Ano]         INT              NOT NULL,
+    [ProdutoraId] UNIQUEIDENTIFIER DEFAULT ('00000000-0000-0000-0000-000000000000') NOT NULL,
+    [Valor]       REAL             DEFAULT (CONVERT([real],(0))) NOT NULL,
+    CONSTRAINT [PK_TB_JOGO] PRIMARY KEY CLUSTERED ([Id] ASC),
+    CONSTRAINT [FK_TB_JOGO_TB_PRODUTORA_ProdutoraId] FOREIGN KEY ([ProdutoraId]) REFERENCES [dbo].[TB_PRODUTORA] ([Id]) ON DELETE CASCADE
+);
+
+
+GO
+CREATE NONCLUSTERED INDEX [IX_TB_JOGO_ProdutoraId]
+    ON [dbo].[TB_JOGO]([ProdutoraId] ASC);
+
